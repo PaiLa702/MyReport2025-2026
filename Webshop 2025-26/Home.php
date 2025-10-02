@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="ShopStyles.css">
@@ -8,6 +9,7 @@
 </head>
 
 <body>
+    
     <?php
     include_once ("CommonCode.php");
     NavigationBar();
