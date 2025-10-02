@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+<<<<<<< HEAD
     <h1>Hello, World!<h1>
         <p>This is my first PHP file.</p>
         <?php
@@ -13,5 +14,8 @@
             print "Hello world<br>";
         }
         ?>
+=======
+    <h1></h1>
+>>>>>>> b24dd55caa7807edfb8be1cb2bcccd8548738630
 </body>
 </html>

@@ -1,0 +1,17 @@
+.navBar {
+    background-color: #4b4b4b;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navBar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navBar a:hover {
+    color: black;
+}
