@@ -21,6 +21,12 @@
 
     <h2>Our Products</h2>
 
+    <style>
+        input[type="number"] {
+            background-color: #8e6fff69;
+            color: black;
+        }
+    </style>
     <div class="AllProducts">
         <div class="ProductItem">
             <img src="Pictures/Potion_Motivation.png" alt="Potion of Monday Motivation" class="ProductImage">
@@ -35,7 +41,7 @@
         <div class="ProductItem">
             <img src="Pictures/Potion_Forgiveness.png" alt="Late Homework Forgiveness Potion" class="ProductImage">
             <h3>Late Homework Forgiveness Potion</h3>
-            <p>Comes with a fake excuse scroll tied to the bottle.</p>
+            <p>Purple potion that comes with a fake excuse scroll tied to the bottle.</p>
             <p>Effect: Won't actually help, but might make your teacher laugh.</p>
             <p>Price: $16.00</p>
             <label for="qty_forgiveness">Quantity:</label>
@@ -55,7 +61,7 @@
         <div class="ProductItem">
             <img src="Pictures/Potion_Focus.png" alt="Potion of Infinite Focus" class="ProductImage">
             <h3>Potion of Infinite Focus</h3>
-            <p>Bright orange energy potion. Smells like coffee and broken dreams.</p>
+            <p>Bright blue energy potion. Smells like coffee and broken dreams.</p>
             <p>Effect: Temporarily removes urge to go back to bed.</p>
             <p>Price: $12.00</p>
             <label for="qty_focus">Quantity:</label>

@@ -9,13 +9,24 @@
 </head>
 
 <body>
-    
+
     <?php
-    include_once ("CommonCode.php");
+    include_once("CommonCode.php");
     NavigationBar();
     ?>
 
-      <h1>Welcome to Our Web Shop!</h1>
-      <p>Discover a wide range of products at unbeatable prices. Shop now and enjoy exclusive deals!</p>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+    <div class="homepage">
+        <h1>Welcome to The Pixel Potion Shop!</h1>
+        <p>Step into a world where magic fizzes in glass bottles and every pixel sparkles with possibility.</p>
+        <p>Whether you need motivation for Mondays, courage for your next adventure, or a quick excuse for that “forgotten” homework, our handcrafted potions are brewed with care and humor.</p>
+        <p>Each vial is pixel-perfect and enchanted to bring a smile — no side effects (probably).</p>
+        <p>Browse our shelves, discover your potion, and let a bit of pixel magic brighten your day!</p>
+        <img src="Pictures/wizard.gif" style="width:300px; height:auto;">
+    </div>
+
 </body>
+
 </html>
