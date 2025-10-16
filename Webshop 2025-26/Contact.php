@@ -14,7 +14,7 @@
 
     <?php
     include_once("CommonCode.php");
-    NavigationBar();
+    NavigationBar("Contact");
     ?>
 
      <section class="contact">
