@@ -10,10 +10,11 @@
     <h1>Hello, World!<h1>
         <p>This is my first PHP file.</p>
         <?php
-        for ($i=1; $i <=1111; $i++) {
-            print "Hello world<br>";
-        }
-        ?>
+for ($i = 0; $i <= 50; $i++) {
+    print $i . "<br>";
+}
+?>
+
 =======
     <h1></h1>
 >>>>>>> b24dd55caa7807edfb8be1cb2bcccd8548738630
