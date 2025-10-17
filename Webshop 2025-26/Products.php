@@ -27,6 +27,7 @@
             color: black;
         }
     </style>
+
     <div class="AllProducts">
         <div class="ProductItem">
             <img src="Pictures/Potion_Motivation.png" alt="Potion of Monday Motivation" class="ProductImage">
@@ -35,7 +36,7 @@
             <p>Effect: Temporarily removes urge to go back to bed.</p>
             <p>Price: $14.00</p>
             <label for="qty_motivation">Quantity:</label>
-            <input type="number" id="qty_motivation" name="qty_motivation" min="1" value="1">
+            <input type="number" id="qty_motivation" name="qty_motivation" min="0" value="0">
         </div>
 
         <div class="ProductItem">
@@ -45,7 +46,7 @@
             <p>Effect: Won't actually help, but might make your teacher laugh.</p>
             <p>Price: $16.00</p>
             <label for="qty_forgiveness">Quantity:</label>
-            <input type="number" id="qty_forgiveness" name="qty_forgiveness" min="1" value="1">
+            <input type="number" id="qty_forgiveness" name="qty_forgiveness" min="0" value="0">
         </div>
 
         <div class="ProductItem">
@@ -55,7 +56,7 @@
             <p>Effect: Lets you study for hours without checking your phone (well… almost).</p>
             <p>Price: $22.00</p>
             <label for="qty_anger">Quantity:</label>
-            <input type="number" id="qty_anger" name="qty_anger" min="1" value="1">
+            <input type="number" id="qty_anger" name="qty_anger" min="0" value="0">
         </div>
 
         <div class="ProductItem">
@@ -65,7 +66,7 @@
             <p>Effect: Temporarily removes urge to go back to bed.</p>
             <p>Price: $12.00</p>
             <label for="qty_focus">Quantity:</label>
-            <input type="number" id="qty_focus" name="qty_focus" min="1" value="1">
+            <input type="number" id="qty_focus" name="qty_focus" min="0" value="0">
         </div>
 
         <div class="ProductItem">
@@ -75,7 +76,7 @@
             <p>Effect: Temporarily boosts self-esteem — perfect before presentations or first dates.</p>
             <p>Price: $18.00</p>
             <label for="qty_confidence">Quantity:</label>
-            <input type="number" id="qty_confidence" name="qty_confidence" min="1" value="1">
+            <input type="number" id="qty_confidence" name="qty_confidence" min="0" value="0">
         </div>
 
         <div class="ProductItem">
@@ -85,7 +86,7 @@
             <p>Effect: Makes you feel productive while achieving absolutely nothing.</p>
             <p>Price: $29.00</p>
             <label for="qty_procrastination">Quantity:</label>
-            <input type="number" id="qty_procrastination" name="qty_procrastination" min="1" value="1">
+            <input type="number" id="qty_procrastination" name="qty_procrastination" min="0" value="0">
         </div>
     </div>
 
