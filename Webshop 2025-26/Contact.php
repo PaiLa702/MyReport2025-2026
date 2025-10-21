@@ -44,6 +44,21 @@
             <p>🏰 <strong>Workshop Location:</strong> Somewhere between reality and imagination.</p>
         </div>
     </section>
+
+    <?php
+    var_dump($_GET);
+    var_dump($_POST);
+
+    if (isset($_GET["name"])) {
+    ?>
+        <h1>Welcome to our Website <?= $name = $_GET["name"] ?></h1>
+    <?php
+        
+    } else {
+        print "<p>Please fill out the contact form to get in touch with us.</p>";
+    }
+    ?>
+
 </body>
 
 </html>
