@@ -13,3 +13,25 @@ function NavigationBar($scallingPage)
 }
 
 ?>
+
+<?php
+function userAlreadyRegistered($checkedUser)
+{
+    $bReturnValue = false;
+
+    if (file_exists("Clients.csv")) {
+        $fHandler = fopen("Clients.csv", "r");
+        while (!feof($fHandler)) {
+            $newLine = fgets($fHandler);
+            $items = explode(";", trim($newLine));
+            if ($items[0] === $checkedUser) {
+                $bReturnValue = true;
+                break;
+            }
+        }
+        fclose($fHandler);
+    }
+
+    return $bReturnValue;
+}
+?>

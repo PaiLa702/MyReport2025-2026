@@ -3,89 +3,68 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Pixel Potion Shop</title>
     <link rel="stylesheet" type="text/css" href="ShopStyles.css?v=<?php echo time(); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Guild | Pixel Potion Shop</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel+Decorative&family=VT323&display=swap" rel="stylesheet">
 </head>
 
 <body>
-   <?php
-include_once("CommonCode.php");
-NavigationBar("Register");
+    <?php
+    include_once("CommonCode.php");
+    NavigationBar("Register");
+    ?>
 
-// --- Default: show the registration form ---
-$showForm = true;
+    <?php
+    $showForm = true;
 
-// --- Handle form submission ---
-if (isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm'])) {
-    $showForm = false;
-    print("<h3>Registration in process...</h3>");
 
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    $confirm = trim($_POST['confirm']);
+    if (isset($_POST['username'], $_POST['password'], $_POST['passwordAgain'])) {
+        $showForm = false;
+        print "<div class='register'><p>✨ Registration in progress...</p>";
 
-    // --- Check if passwords match ---
-    if ($password === $confirm) {
-        print("<p>Passwords match. Registering user...</p>");
 
-        // --- Hash password before saving (for security) ---
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        if ($_POST['password'] == $_POST['passwordAgain'] && !userAlreadyRegistered($_POST['username'])) {
+            print "<p>✅ Passwords match! Welcome, apprentice brewer <strong>{$_POST['username']}</strong>.<br>";
+            print "Your scroll of membership is being recorded in the guild archives...</p>";
 
-        // --- Open or create Clients.csv file ---
-        $file = fopen("Clients.csv", "a");
 
-        if ($file) {
-            // Write header if file is empty
-            if (filesize("Clients.csv") === 0) {
-                fputcsv($file, ["Username", "Email", "Password"]);
-            }
+            $fileHandler = fopen("Clients.csv", "a");
+            fwrite($fileHandler, "\n" . $_POST['username'] . ";" . $_POST['password']);
+            fclose($fileHandler);
 
-            // --- Save user info as a new row ---
-            fputcsv($file, [$username, $email, $hashedPassword]);
-            fclose($file);
-
-            print("<p style='color:green;'>Success! You have been registered 🧙‍♂️</p>");
+            print "<p>🪄 Registration successful!</p></div>";
         } else {
-            print("<p style='color:red;'>Error: Unable to open Clients.csv</p>");
+            $showForm = true;
+            print "<p>❌ Error: Either your passwords do not match, or the adventurer name already exists.<br>";
+            print "Please try again, noble brewer!</p></div>";
         }
-    } else {
-        $showForm = true;
-        print("<p style='color:red;'>Error: The two passwords do not match. Please try again!</p>");
     }
-}
 
-// --- Display form if needed ---
-if ($showForm) {
-?>
-    <h2>Register as an Apprentice Brewer 🧪</h2>
-    <form method="POST" action="">
-        <div>
-            <label for="username">Adventurer Name:</label><br>
-            <input type="text" name="username" id="username" required>
-        </div>
+    if ($showForm) {
+    ?>
+        <section class="register">
+            <h2>Register as an Apprentice Brewer 🧪</h2>
+            <p>Join the guild and start your potion-making journey!
+                Gain access to secret recipes, member-only discounts, and exclusive magical brews.</p>
 
-        <div>
-            <label for="email">Raven Address (Email):</label><br>
-            <input type="email" name="email" id="email" required>
-        </div>
+            <form class="register-form" method="POST">
+                <label for="username">Adventurer Name:</label>
+                <input type="text" id="username" name="username" placeholder="e.g., Elara the Swift" required>
 
-        <div>
-            <label for="password">Secret Word (Password):</label><br>
-            <input type="password" name="password" id="password" required>
-        </div>
+                <label for="password">Secret Word (Password):</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
 
-        <div>
-            <label for="confirm">Repeat Secret Word:</label><br>
-            <input type="password" name="confirm" id="confirm" required>
-        </div>
+                <label for="passwordAgain">Repeat Secret Word:</label>
+                <input type="password" id="passwordAgain" name="passwordAgain" placeholder="••••••••" required>
 
-        <input type="submit" value="Join the Guild ✨">
-    </form>
-<?php
-}
-?>
+                <button type="submit">Join the Guild ✨</button>
+            </form>
+        </section>
+    <?php
+    }
+    ?>
 </body>
+
 </html>
