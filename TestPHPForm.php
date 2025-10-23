@@ -24,9 +24,9 @@
         Pick your favorite car:
         <select name="cars" id="cars">
             <?php
-            for ($i = 0; $i < count($carsAavailable); $i++) {
+            foreach ($carsAavailable as $i => $car ) {
             ?>
-                <option value="<?= $i ?>"> <?= $carsAavailable[$i] ?> </option>
+                <option value="<?= $i ?>"> <?= $car ?> </option>
             <?php
             }
             ?>
