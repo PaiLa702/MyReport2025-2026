@@ -1,17 +1,46 @@
 <?php
-
-function NavigationBar($scallingPage)
-{
-?>
-    <div class="navBar">
-        <a <?php if ($scallingPage == "Home") print "class='highlight'"; ?> href="Home.php">Home</a>
-        <a <?php if ($scallingPage == "Contact") print "class='highlight'"; ?> href="Contact.php">Contact</a>
-        <a <?php if ($scallingPage == "Products") print "class='highlight'"; ?> href="Products.php">Products</a>
-        <a <?php if ($scallingPage == "Register") print "class='highlight'"; ?> href="Register.php">Register</a>
-    </div>
-<?php
+$language = "EN";
+if (isset($_GET["lang"])) {
+    $language = $_GET["lang"];
 }
 
+print("Current language: " . $language);
+
+
+function NavigationBar($callingPage)
+{
+    global $language;
+    $navigationBarLinks = [
+        "Home" => "Home.php",
+        "Contact" => "Contact.php",
+        "Products" => "Products.php",
+        "Register" => "Register.php",
+    ];
+
+?>
+
+    <div class="navBar">
+        <?php
+        foreach ($navigationBarLinks as $keyVariable => $valueVariable) {
+        ?>
+
+            <a <?= ($callingPage == $keyVariable) ? "class='highlight'" : ""; ?>
+                href="<?= $valueVariable ?>?lang=<?= $language ?>"> <?= $keyVariable ?> </a>;
+        <?php
+        }
+
+
+        ?>
+        <form>
+            <select name="lang" onchange="this.form.submit()">
+                <option value="EN" <?php if ($language == "EN") print("selected"); ?>>English</option>
+                <option value="RO" <?php if ($language == "RO") print("selected"); ?>>Romanian</option>
+            </select>
+        </form>
+    </div>
+
+<?php
+}
 ?>
 
 <?php
