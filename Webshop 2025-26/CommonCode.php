@@ -4,17 +4,35 @@ if (isset($_GET["lang"])) {
     $language = $_GET["lang"];
 }
 
-print("Current language: " . $language);
 
+//print("Current language: " . $language);
+
+$arrayOfTranslations = [];
+
+$fileTranslations = fopen("Translations.csv", "r");
+while (!feof($fileTranslations)) {
+    $lineFromFile = fgets($fileTranslations);
+    $piecesOfTranslations = explode(";", $lineFromFile);
+    //$arrayOfTranslations[$piecesOfTranslations[0]] = ($language == "EN") ? $piecesOfTranslations[1] : $piecesOfTranslations[2];
+
+    if($language == "EN") {
+        $arrayOfTranslations[$piecesOfTranslations[0]] = ($piecesOfTranslations[1]);
+    } else {
+        $arrayOfTranslations[$piecesOfTranslations[0]] = ($piecesOfTranslations[2]);
+    }
+}
+
+//var_dump($arrayOfTranslations);
 
 function NavigationBar($callingPage)
 {
     global $language;
+    global $arrayOfTranslations;
     $navigationBarLinks = [
-        "Home" => "Home.php",
-        "Contact" => "Contact.php",
-        "Products" => "Products.php",
-        "Register" => "Register.php",
+        $arrayOfTranslations["HomeBtn"] => "Home.php",
+        $arrayOfTranslations["ContactBtn"] => "Contact.php",
+        $arrayOfTranslations["ProductsBtn"] => "Products.php",
+        $arrayOfTranslations["RegisterBtn"] => "Register.php",
     ];
 
 ?>
