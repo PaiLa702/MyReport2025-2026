@@ -29,6 +29,27 @@
     </style>
 
     <div class="AllProducts">
+
+        <?php
+        $fileProducts = fopen("Products.csv", "r");
+        while (!feof($fileProducts)) {
+            $oneProduct = fgets($fileProducts);
+            $individualItemComponents = explode(";", $oneProduct);
+            if (count($individualItemComponents) == 6) {
+        ?>
+                <div class="OneProduct">
+                    <div><?= $individualItemComponents[$language == "EN" ? 0 : 5] ?></div>
+                    <img src=" ./images/<?= $individualItemComponents[1] ?>">
+                    <div><?= $individualItemComponents[$language == "EN" ? 3 : 4] ?></div>
+                    <div><?= $individualItemComponents[2] ?> EUR</div>
+                    <div><?= $individualItemComponents[($language == "EN") ? 3 : 4] ?></div>
+                </div>
+        <?php
+            }
+        }
+        ?>
+
+
         <div class="ProductItem">
             <img src="Pictures/Potion_Motivation.png" alt="Potion of Monday Motivation" class="ProductImage">
             <h3>Potion of Monday Motivation</h3>

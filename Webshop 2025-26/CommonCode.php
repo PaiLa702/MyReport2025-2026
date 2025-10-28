@@ -5,7 +5,7 @@ if (isset($_GET["lang"])) {
 }
 
 
-//print("Current language: " . $language);
+
 
 $arrayOfTranslations = [];
 
@@ -13,7 +13,7 @@ $fileTranslations = fopen("Translations.csv", "r");
 while (!feof($fileTranslations)) {
     $lineFromFile = fgets($fileTranslations);
     $piecesOfTranslations = explode(";", $lineFromFile);
-    //$arrayOfTranslations[$piecesOfTranslations[0]] = ($language == "EN") ? $piecesOfTranslations[1] : $piecesOfTranslations[2];
+   
 
     if($language == "EN") {
         $arrayOfTranslations[$piecesOfTranslations[0]] = ($piecesOfTranslations[1]);
@@ -22,7 +22,6 @@ while (!feof($fileTranslations)) {
     }
 }
 
-//var_dump($arrayOfTranslations);
 
 function NavigationBar($callingPage)
 {
