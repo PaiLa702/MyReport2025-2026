@@ -45,9 +45,8 @@
     if ($showForm) {
     ?>
         <section class="register">
-            <h2>Register as an Apprentice Brewer 🧪</h2>
-            <p>Join the guild and start your potion-making journey!
-                Gain access to secret recipes, member-only discounts, and exclusive magical brews.</p>
+            <h2><?= $arrayOfTranslations["RegisterTitle"]?></h2>
+            <p><?= $arrayOfTranslations["RegisterText"]?></p>
 
             <form class="register-form" method="POST">
                 <label for="username">Adventurer Name:</label>
