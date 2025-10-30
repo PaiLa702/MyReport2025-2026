@@ -17,31 +17,31 @@
     ?>
 
     <section class="contact">
-        <h2>Contact the Potion Master</h2>
-        <p>Need help with your order, a replacement bottle, or a custom brew idea? Send us a message below and we’ll respond faster than a teleportation spell!</p>
+        <h2><?= $arrayOfTranslations["ContactTitle"]?></h2>
+        <p><?= $arrayOfTranslations["ContactText"]?></p>
 
 
         <form class="contact-form">
-            <label for="name">Adventurer Name:</label>
-            <input type="text" id="name" placeholder="e.g., Merlin the Focused">
+            <label for="name"><?= $arrayOfTranslations["ContactLabel1"]?></label>
+            <input type="text" id="name" placeholder=<?= $arrayOfTranslations["ContactPlaceholder1"]?>>
 
-            <label for="email">Raven Address (Email):</label>
-            <input type="email" id="email" placeholder="you@example.com">
+            <label for="email"><?= $arrayOfTranslations["ContactLabel2"]?></label>
+            <input type="email" id="email" placeholder=<?= $arrayOfTranslations["ContactPlaceholder2"]?>>
 
-            <label for="subject">Potion Inquiry:</label>
-            <input type="text" id="subject" placeholder="Which potion calls to you?">
+            <label for="subject"><?= $arrayOfTranslations["ContactLabel3"]?></label>
+            <input type="text" id="subject" placeholder=<?= $arrayOfTranslations["ContactPlaceholder3"]?>>
 
-            <label for="message">Your Message:</label>
-            <textarea id="message" rows="5" placeholder="Type your message spell here..."></textarea>
+            <label for="message"><?= $arrayOfTranslations["ContactLabel4"]?></label>
+            <textarea id="message" rows="5" placeholder=<?= $arrayOfTranslations["ContactPlaceholder4"]?>></textarea>
 
-            <button type="submit">Send Your Scroll ✉️</button>
+            <button type="submit"><?= $arrayOfTranslations["ContactSendBtn"]?></button>
         </form>
 
 
         <div class="contact-details">
-            <p>🦉 <strong>Raven Address:</strong> support@pixelpotions.shop</p>
-            <p>🔮 <strong>Crystal Ball Hotline:</strong> +1 (555) MAGIC-01</p>
-            <p>🏰 <strong>Workshop Location:</strong> Somewhere between reality and imagination.</p>
+            <p>🦉 <strong><?= $arrayOfTranslations["ContactAddress"]?><strong></p>
+            <p>🔮 <strong><?= $arrayOfTranslations["ContactAddress"]?><strong></p>
+            <p>🏰 <strong><?= $arrayOfTranslations["ContactLocation"]?><strong></p>
         </div>
     </section>
 

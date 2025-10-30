@@ -51,7 +51,7 @@ function NavigationBar($callingPage)
         <form>
             <select name="lang" onchange="this.form.submit()">
                 <option value="EN" <?php if ($language == "EN") print("selected"); ?>>English</option>
-                <option value="RO" <?php if ($language == "RO") print("selected"); ?>>Romanian</option>
+                <option value="PT" <?php if ($language == "PT") print("selected"); ?>>Portuguese</option>
             </select>
         </form>
     </div>
