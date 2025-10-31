@@ -49,16 +49,16 @@
             <p><?= $arrayOfTranslations["RegisterText"]?></p>
 
             <form class="register-form" method="POST">
-                <label for="username">Adventurer Name:</label>
-                <input type="text" id="username" name="username" placeholder="e.g., Elara the Swift" required>
+                <label for="username"><?= $arrayOfTranslations["RegisterUsername"]?></label>
+                <input type="text" id="username" name="username" placeholder="<?= $arrayOfTranslations["RegisterUsernamePlaceholder"]?>" required>
 
-                <label for="password">Secret Word (Password):</label>
+                <label for="password"><?= $arrayOfTranslations["RegisterSecretPassword"]?></label>
                 <input type="password" id="password" name="password" placeholder="••••••••" required>
 
-                <label for="passwordAgain">Repeat Secret Word:</label>
+                <label for="passwordAgain"><?= $arrayOfTranslations["RegisterSecretPasswordRepeat"]?></label>
                 <input type="password" id="passwordAgain" name="passwordAgain" placeholder="••••••••" required>
 
-                <button type="submit">Join the Guild ✨</button>
+                <button type="submit"><?= $arrayOfTranslations["RegisterPageButton"]?></button>
             </form>
         </section>
     <?php

@@ -1,74 +1,215 @@
+/* =============================================== */
+/* ✨ MAGIC POTIONS SHOP — PRODUCT PAGE STYLES ✨ */
+/* =============================================== */
+
+/* 🌌 Global */
+body {
+    background: url("Pictures/BackGround.gif") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'VT323', monospace;
+    color: #f7eaff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* 🌠 Navbar (shared with CommonCode.php) */
 .navBar {
-    background-color: #1a0f2e;
-    height: 50px;
+    background: rgba(30, 10, 60, 0.85);
+    border-bottom: 2px solid rgba(180, 120, 255, 0.5);
+    box-shadow: 0 0 20px rgba(150, 100, 255, 0.3);
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 40px;
+    height: 70px;
+   
 }
 
 .navBar a {
-    color: white;
     font-family: 'Cinzel Decorative', cursive;
+    color: #f9eaff;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: 0.3s;
+    padding: 6px 12px;
 }
 
 .navBar a:hover {
-    color: #6b4ae0;
-}
-
-.highlight {
-    background: linear-gradient(90deg, #6b4ae0 0%, #a36bff 50%, #6b4ae0 100%);
-    border-radius: 8px;
-    padding: 6px 12px;
     color: #fff;
-    text-shadow: 0 0 6px #fff, 0 0 12px #b388ff;
-    box-shadow: 0 0 12px rgba(180, 120, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.2);
-    animation: glowPulse 2s infinite ease-in-out;
-    transition: transform 0.2s ease;
-}
-
-@keyframes glowPulse {
-
-    0%,
-    100% {
-        box-shadow: 0 0 10px rgba(180, 120, 255, 0.5);
-    }
-
-    50% {
-        box-shadow: 0 0 20px rgba(180, 120, 255, 0.8);
-    }
-}
-
-.highlight:hover {
+    text-shadow: 0 0 10px #d8b4ff, 0 0 20px #b98fff;
     transform: scale(1.05);
 }
 
-.ProductItem {
+.highlight {
+    background: linear-gradient(90deg, #7c4dff, #a678ff);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 10px;
+    box-shadow: 0 0 14px rgba(160, 100, 255, 0.6);
+}
+
+/* 🌍 Language Switcher */
+.langSwitch {
+    margin-left: auto;
+    margin-right: 40px;
+}
+
+.langSwitch select {
+    background: rgba(120, 80, 200, 0.3);
+    color: #f9eaff;
+    border: 1px solid rgba(200, 150, 255, 0.5);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-family: 'VT323', monospace;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.langSwitch select:hover {
+    background: rgba(150, 100, 255, 0.4);
+    box-shadow: 0 0 10px rgba(180, 120, 255, 0.6);
+}
+
+/* 🌙 Section Title */
+h2 {
     font-family: 'Cinzel Decorative', cursive;
-    flex: 0 0 25%;
-    background: #eb9bec6e;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    padding: 1.5rem;
-    margin: 1rem;
-    width: 260px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 2.8rem;
+    color: #ffffff;
+    text-shadow: 0 0 12px #b98fff, 0 0 25px #915aff;
+    letter-spacing: 2px;
+    margin-top: 50px;
+    position: relative;
 }
 
-.ProductItem:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 3px;
+    margin: 15px auto 0;
+    background: linear-gradient(90deg, #7a3fff, #b388ff, #00ffd5);
+    border-radius: 3px;
+    box-shadow: 0 0 15px rgba(150, 100, 255, 0.8);
 }
 
-.AllProducts {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* 🧪 Products Grid */
+.ProductItems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 60px;
+    padding: 60px 100px;
+    justify-items: center;
 }
+
+/* 💎 Product Card */
+.OneProduct {
+    background: linear-gradient(180deg, rgba(40, 20, 80, 0.9) 0%, rgba(60, 30, 100, 0.95) 100%);
+    border: 2px solid rgba(180, 120, 255, 0.4);
+    border-radius: 18px;
+    width: 350px;
+    padding: 2.5rem;
+    box-shadow: 0 0 30px rgba(140, 90, 255, 0.3);
+    transition: 0.3s ease;
+}
+
+.OneProduct:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(190, 140, 255, 0.6);
+}
+
+.OneProduct img {
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    box-shadow: 0 0 10px rgba(200, 150, 255, 0.3);
+}
+
+/* 🧾 Product Text */
+.OneProduct div {
+    font-size: 1.2rem;
+    margin: 0.4rem 0;
+    color: #f5eaff;
+}
+
+/* 🏷️ Price */
+.OneProduct div:last-child {
+    margin-top: 0.8rem;
+    color: #ffe6ff;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(180, 120, 255, 0.8);
+}
+
+/* 🔢 Quantity Input */
+input[type="number"] {
+    background: rgba(140, 100, 255, 0.2);
+    border: 1px solid rgba(200, 150, 255, 0.4);
+    color: #fff;
+    border-radius: 8px;
+    padding: 5px;
+    width: 70px;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 10px;
+    font-family: 'VT323', monospace;
+    transition: 0.2s;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    background: rgba(150, 100, 255, 0.3);
+    border-color: #d8b9ff;
+    box-shadow: 0 0 10px #cfaaff;
+}
+
+/* 🌈 Responsiveness */
+@media (max-width: 1100px) {
+    .ProductItems {
+        padding: 40px 50px;
+        gap: 40px;
+    }
+
+    .OneProduct {
+        width: 300px;
+    }
+}
+
+@media (max-width: 700px) {
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .OneProduct {
+        width: 280px;
+        padding: 2rem;
+    }
+
+    .OneProduct img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #d8b9ff;
+    box-shadow: 0 0 8px #d1a8ff;
+    background-color: rgba(160, 100, 255, 0.25);
+}
+
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #d8b9ff;
+    box-shadow: 0 0 8px #d1a8ff;
+}
+
 
 h2 {
     font-family: 'Cinzel Decorative', cursive;

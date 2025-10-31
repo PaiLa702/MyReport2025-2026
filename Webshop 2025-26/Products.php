@@ -28,89 +28,27 @@
         }
     </style>
 
-    <div class="AllProducts">
-
+        <div class="ProductItems">
         <?php
         $fileProducts = fopen("Products.csv", "r");
+        fgets($fileProducts);
         while (!feof($fileProducts)) {
             $oneProduct = fgets($fileProducts);
             $individualItemComponents = explode(";", $oneProduct);
-            if (count($individualItemComponents) == 6) {
+            if (count($individualItemComponents) == 8) {
         ?>
                 <div class="OneProduct">
-                    <div><?= $individualItemComponents[$language == "EN" ? 0 : 5] ?></div>
-                    <img src=" ./images/<?= $individualItemComponents[1] ?>">
-                    <div><?= $individualItemComponents[$language == "EN" ? 3 : 4] ?></div>
-                    <div><?= $individualItemComponents[2] ?> EUR</div>
-                    <div><?= $individualItemComponents[($language == "EN") ? 3 : 4] ?></div>
+                    <div><?= $individualItemComponents[$language == "EN" ? 0 : 7] ?></div>
+                    <img src=" Pictures/<?= $individualItemComponents[1] ?>">
+                    <div><?= $individualItemComponents[$language == "EN" ? 3 : 5] ?></div>
+                    <div><?= $individualItemComponents[$language == "EN" ? 4 : 6] ?></div>
+                    <div><?= $individualItemComponents[2] ?>EUR</div>
                 </div>
         <?php
             }
         }
         ?>
-
-
-        <div class="ProductItem">
-            <img src="Pictures/Potion_Motivation.png" alt="Potion of Monday Motivation" class="ProductImage">
-            <h3>Potion of Monday Motivation</h3>
-            <p>Bright orange energy potion. Smells like coffee and broken dreams.</p>
-            <p>Effect: Temporarily removes urge to go back to bed.</p>
-            <p>Price: $14.00</p>
-            <label for="qty_motivation">Quantity:</label>
-            <input type="number" id="qty_motivation" name="qty_motivation" min="0" value="0">
         </div>
-
-        <div class="ProductItem">
-            <img src="Pictures/Potion_Forgiveness.png" alt="Late Homework Forgiveness Potion" class="ProductImage">
-            <h3>Late Homework Forgiveness Potion</h3>
-            <p>Purple potion that comes with a fake excuse scroll tied to the bottle.</p>
-            <p>Effect: Won't actually help, but might make your teacher laugh.</p>
-            <p>Price: $16.00</p>
-            <label for="qty_forgiveness">Quantity:</label>
-            <input type="number" id="qty_forgiveness" name="qty_forgiveness" min="0" value="0">
-        </div>
-
-        <div class="ProductItem">
-            <img src="Pictures/Anger_Vial.png" alt="Anger Management Vial" class="ProductImage">
-            <h3>Anger Management Vial</h3>
-            <p>A shimmering blue potion that clears distractions and boosts concentration.</p>
-            <p>Effect: Lets you study for hours without checking your phone (well… almost).</p>
-            <p>Price: $22.00</p>
-            <label for="qty_anger">Quantity:</label>
-            <input type="number" id="qty_anger" name="qty_anger" min="0" value="0">
-        </div>
-
-        <div class="ProductItem">
-            <img src="Pictures/Potion_Focus.png" alt="Potion of Infinite Focus" class="ProductImage">
-            <h3>Potion of Infinite Focus</h3>
-            <p>Bright blue energy potion. Smells like coffee and broken dreams.</p>
-            <p>Effect: Temporarily removes urge to go back to bed.</p>
-            <p>Price: $12.00</p>
-            <label for="qty_focus">Quantity:</label>
-            <input type="number" id="qty_focus" name="qty_focus" min="0" value="0">
-        </div>
-
-        <div class="ProductItem">
-            <img src="Pictures/Confidence_Elixir.png" alt="Confidence Elixir" class="ProductImage">
-            <h3>Confidence Elixir</h3>
-            <p>A bright golden liquid that radiates warmth.</p>
-            <p>Effect: Temporarily boosts self-esteem — perfect before presentations or first dates.</p>
-            <p>Price: $18.00</p>
-            <label for="qty_confidence">Quantity:</label>
-            <input type="number" id="qty_confidence" name="qty_confidence" min="0" value="0">
-        </div>
-
-        <div class="ProductItem">
-            <img src="Pictures/Potion_Procrastination.png" alt="Potion of Eternal Procrastination" class="ProductImage">
-            <h3>Potion of Eternal Procrastination</h3>
-            <p>A swirling teal and purple mixture that looks lazy just sitting there.</p>
-            <p>Effect: Makes you feel productive while achieving absolutely nothing.</p>
-            <p>Price: $29.00</p>
-            <label for="qty_procrastination">Quantity:</label>
-            <input type="number" id="qty_procrastination" name="qty_procrastination" min="0" value="0">
-        </div>
-    </div>
-
 
 </body>
 

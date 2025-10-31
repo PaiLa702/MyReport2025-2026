@@ -21,3 +21,8 @@ ContactHotline;Cristal Ball Hotline: +1 (555) MAGIC-01;Linha Direta do Cristal: 
 ContactLocation;Workshop Location: Somewhere between reality and imagination.;Localização da Loja: Algures entre a realidade e a imaginação.
 RegisterTitle;Register as an Apprentice Brewer 🧪;Registe-se como Aprendiz de fabricante de poções 🧪
 RegisterText;Join the guild and start your potion-making journey!  Gain access to secret recipes, member-only discounts, and exclusive magical brews.;Junte-se à guilda e comece a sua jornada na fabricação de poções!  Obtenha acesso a receitas secretas, descontos exclusivos para membros, e misturas mágicas exclusivas.
+RegisterUsername;Adventurer Name:;Nome do Aventureiro:
+RegisterSecretPassword;Secret Word (Password):;Palavra Secreta (Senha):
+RegisterSecretPasswordRepeat;Repeat Secret Word:;Repita a Palavra Secreta:
+RegisterPageButton;Join the Guild! ✨;Junte-se à Guilda! ✨
+RegisterUsernamePlaceholder;e.g., Elara the Swift;ex., Elara a Veloz

@@ -23,16 +23,16 @@
 
         <form class="contact-form">
             <label for="name"><?= $arrayOfTranslations["ContactLabel1"]?></label>
-            <input type="text" id="name" placeholder=<?= $arrayOfTranslations["ContactPlaceholder1"]?>>
+            <input type="text" id="name" placeholder="<?= $arrayOfTranslations["ContactPlaceholder1"]?>">
 
             <label for="email"><?= $arrayOfTranslations["ContactLabel2"]?></label>
-            <input type="email" id="email" placeholder=<?= $arrayOfTranslations["ContactPlaceholder2"]?>>
+            <input type="email" id="email" placeholder="<?= $arrayOfTranslations["ContactPlaceholder2"]?>">
 
             <label for="subject"><?= $arrayOfTranslations["ContactLabel3"]?></label>
-            <input type="text" id="subject" placeholder=<?= $arrayOfTranslations["ContactPlaceholder3"]?>>
+            <input type="text" id="subject" placeholder="<?= $arrayOfTranslations["ContactPlaceholder3"]?>">
 
             <label for="message"><?= $arrayOfTranslations["ContactLabel4"]?></label>
-            <textarea id="message" rows="5" placeholder=<?= $arrayOfTranslations["ContactPlaceholder4"]?>></textarea>
+            <textarea id="message" rows="5" placeholder="<?= $arrayOfTranslations["ContactPlaceholder4"]?>"></textarea>
 
             <button type="submit"><?= $arrayOfTranslations["ContactSendBtn"]?></button>
         </form>
