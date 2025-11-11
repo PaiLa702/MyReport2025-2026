@@ -1,8 +1,4 @@
-/* =============================================== */
-/* ✨ MAGIC POTIONS SHOP — PRODUCT PAGE STYLES ✨ */
-/* =============================================== */
 
-/* 🌌 Global */
 body {
     background: url("Pictures/BackGround.gif") no-repeat center center fixed;
     background-size: cover;
@@ -13,7 +9,7 @@ body {
     text-align: center;
 }
 
-/* 🌠 Navbar (shared with CommonCode.php) */
+
 .navBar {
     background: rgba(30, 10, 60, 0.85);
     border-bottom: 2px solid rgba(180, 120, 255, 0.5);
@@ -50,7 +46,7 @@ body {
     box-shadow: 0 0 14px rgba(160, 100, 255, 0.6);
 }
 
-/* 🌍 Language Switcher */
+
 .langSwitch {
     margin-left: auto;
     margin-right: 40px;
@@ -72,7 +68,7 @@ body {
     box-shadow: 0 0 10px rgba(180, 120, 255, 0.6);
 }
 
-/* 🌙 Section Title */
+
 h2 {
     font-family: 'Cinzel Decorative', cursive;
     font-size: 2.8rem;
@@ -94,7 +90,7 @@ h2::after {
     box-shadow: 0 0 15px rgba(150, 100, 255, 0.8);
 }
 
-/* 🧪 Products Grid */
+
 .ProductItems {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -103,7 +99,7 @@ h2::after {
     justify-items: center;
 }
 
-/* 💎 Product Card */
+
 .OneProduct {
     background: linear-gradient(180deg, rgba(40, 20, 80, 0.9) 0%, rgba(60, 30, 100, 0.95) 100%);
     border: 2px solid rgba(180, 120, 255, 0.4);
@@ -130,14 +126,14 @@ h2::after {
     box-shadow: 0 0 10px rgba(200, 150, 255, 0.3);
 }
 
-/* 🧾 Product Text */
+
 .OneProduct div {
     font-size: 1.2rem;
     margin: 0.4rem 0;
     color: #f5eaff;
 }
 
-/* 🏷️ Price */
+
 .OneProduct div:last-child {
     margin-top: 0.8rem;
     color: #ffe6ff;
@@ -145,7 +141,7 @@ h2::after {
     text-shadow: 0 0 6px rgba(180, 120, 255, 0.8);
 }
 
-/* 🔢 Quantity Input */
+
 input[type="number"] {
     background: rgba(140, 100, 255, 0.2);
     border: 1px solid rgba(200, 150, 255, 0.4);
@@ -167,7 +163,7 @@ input[type="number"]:focus {
     box-shadow: 0 0 10px #cfaaff;
 }
 
-/* 🌈 Responsiveness */
+
 @media (max-width: 1100px) {
     .ProductItems {
         padding: 40px 50px;
@@ -548,3 +544,96 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 0 20px rgba(200, 150, 255, 0.8);
 }
+
+
+.login-container {
+    max-width: 420px;
+    margin: 120px auto;
+    background: linear-gradient(180deg, #2a1844 0%, #3c2466 100%);
+    border: 2px solid rgba(160, 100, 255, 0.4);
+    border-radius: 18px;
+    box-shadow: 0 0 30px rgba(108, 99, 255, 0.4);
+    padding: 2.5rem;
+    text-align: center;
+    color: #f5e6ff;
+    animation: fadeIn 1s ease-out;
+}
+
+
+.login-container h2 {
+    font-family: 'Cinzel Decorative', cursive;
+    color: #ffd6ff;
+    text-shadow: 0 0 10px #b88cff, 0 0 25px #8a5cff;
+    margin-bottom: 1.8rem;
+    font-size: 2rem;
+}
+
+.login-container label {
+    display: block;
+    text-align: left;
+    margin: 12px 0 6px;
+    font-size: 1.2rem;
+    color: #e6d4ff;
+}
+
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    border: 1px solid #b58dff;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.login-container input:focus {
+    border-color: #d8b9ff;
+    box-shadow: 0 0 10px #d1a8ff;
+}
+
+
+.login-container button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, #6b4ae0, #a36bff);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'VT323', monospace;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.login-container button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(160, 100, 255, 0.6);
+}
+
+.success, .error {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: 'VT323', monospace;
+}
+
+.success {
+    color: #b7ffb7;
+    background: rgba(100, 255, 100, 0.1);
+    border: 1px solid rgba(100, 255, 100, 0.4);
+    text-shadow: 0 0 8px rgba(100, 255, 100, 0.6);
+}
+
+.error {
+    color: #ffb7b7;
+    background: rgba(255, 100, 100, 0.1);
+    border: 1px solid rgba(255, 100, 100, 0.4);
+    text-shadow: 0 0 8px rgba(255, 100, 100, 0.6);
+}
+

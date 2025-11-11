@@ -32,6 +32,7 @@ function NavigationBar($callingPage)
         $arrayOfTranslations["ContactBtn"] => "Contact.php",
         $arrayOfTranslations["ProductsBtn"] => "Products.php",
         $arrayOfTranslations["RegisterBtn"] => "Register.php",
+        $arrayOfTranslations["LoginBtn"] => "Login.php"
     ];
 
 ?>
@@ -42,7 +43,7 @@ function NavigationBar($callingPage)
         ?>
 
             <a <?= ($callingPage == $keyVariable) ? "class='highlight'" : ""; ?>
-                href="<?= $valueVariable ?>?lang=<?= $language ?>"> <?= $keyVariable ?> </a>;
+                href="<?= $valueVariable ?>?lang=<?= $language ?>"> <?= $keyVariable ?></a>
         <?php
         }
 
