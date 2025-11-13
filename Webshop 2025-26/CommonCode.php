@@ -65,20 +65,17 @@ function NavigationBar($callingPage)
 function userAlreadyRegistered($checkedUser)
 {
     $bReturnValue = false;
-
-    if (file_exists("Clients.csv")) {
-        $fHandler = fopen("Clients.csv", "r");
-        while (!feof($fHandler)) {
-            $newLine = fgets($fHandler);
-            $items = explode(";", trim($newLine));
-            if ($items[0] === $checkedUser) {
-                $bReturnValue = true;
-                break;
-            }
+    $fHandler = fopen("Client.csv", "r");
+    while (!feof($fHandler)) {
+        $newLine = fgets($fHandler);
+        $items = explode(";", $newLine);
+        if ($items[0] == $checkedUser) {
+            $bReturnValue = true;
         }
-        fclose($fHandler);
     }
-
+    fclose($fHandler);
     return $bReturnValue;
+ 
 }
+ 
 ?>

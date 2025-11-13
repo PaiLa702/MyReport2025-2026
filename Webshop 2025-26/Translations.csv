@@ -23,7 +23,18 @@ ContactLocation;Workshop Location: Somewhere between reality and imagination.;Lo
 RegisterTitle;Register as an Apprentice Brewer 🧪;Registe-se como Aprendiz de fabricante de poções 🧪
 RegisterText;Join the guild and start your potion-making journey!  Gain access to secret recipes, member-only discounts, and exclusive magical brews.;Junte-se à guilda e comece a sua jornada na fabricação de poções!  Obtenha acesso a receitas secretas, descontos exclusivos para membros, e misturas mágicas exclusivas.
 RegisterUsername;Adventurer Name:;Nome do Aventureiro:
+DisplayName;Display Name (Public):;Nome de Exibição (Público):
+DisplayNamePlaceholder;e.g., Elara the Swift;ex., Elara a Veloz
+RegisterEmail;Raven Address (Email):;Endereço do Corvo (Email):
+RegisterEmailPlaceholder;you@example.com;você@exemplo.com
 RegisterSecretPassword;Secret Word (Password):;Palavra Secreta (Senha):
 RegisterSecretPasswordRepeat;Repeat Secret Word:;Repita a Palavra Secreta:
 RegisterPageButton;Join the Guild! ✨;Junte-se à Guilda! ✨
 RegisterUsernamePlaceholder;e.g., Elara the Swift;ex., Elara a Veloz
+LoginTitle;Login to your magic account;Inicie sessão na sua conta mágica
+LoginUsername;Username;Nome de Utilizador
+LoginUsernameEnter;Enter username;Digite o nome de utilizador
+LoginPassword;Password;Senha
+LoginPasswordEnter;Enter password;Digite a senha
+LoginMessageSuccess;You are logged in, mighty alchemist!;Você está conectado, poderoso alquimista!
+LoginMessageError;Invalid username or password. Please try again.;Nome de utilizador ou senha inválidos. Por favor, tente novamente.
