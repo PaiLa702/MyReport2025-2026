@@ -1,4 +1,3 @@
-
 body {
     background: url("Pictures/BackGround.gif") no-repeat center center fixed;
     background-size: cover;
@@ -19,7 +18,7 @@ body {
     justify-content: center;
     gap: 40px;
     height: 70px;
-   
+
 }
 
 .navBar a {
@@ -467,8 +466,15 @@ body {
 }
 
 @keyframes glowBorder {
-    0%, 100% { box-shadow: 0 0 8px rgba(180, 120, 255, 0.6); }
-    50% { box-shadow: 0 0 20px rgba(220, 180, 255, 0.9); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(180, 120, 255, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(220, 180, 255, 0.9);
+    }
 }
 
 .register h2 {
@@ -481,8 +487,15 @@ body {
 }
 
 @keyframes shimmer {
-    0%, 100% { text-shadow: 0 0 8px #b288ff, 0 0 16px #b388ff; }
-    50% { text-shadow: 0 0 16px #e0b3ff, 0 0 28px #b388ff; }
+
+    0%,
+    100% {
+        text-shadow: 0 0 8px #b288ff, 0 0 16px #b388ff;
+    }
+
+    50% {
+        text-shadow: 0 0 16px #e0b3ff, 0 0 28px #b388ff;
+    }
 }
 
 .register p {
@@ -615,7 +628,8 @@ body {
     box-shadow: 0 0 18px rgba(160, 100, 255, 0.6);
 }
 
-.success, .error {
+.success,
+.error {
     margin-top: 25px;
     font-size: 1.3rem;
     padding: 12px;
@@ -636,4 +650,3 @@ body {
     border: 1px solid rgba(255, 100, 100, 0.4);
     text-shadow: 0 0 8px rgba(255, 100, 100, 0.6);
 }
-

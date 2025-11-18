@@ -19,7 +19,7 @@
     ?>
 
 
-    <h2>Our Products</h2>
+    <h2><?= $arrayOfTranslations["ProductTitle"]?></h2>
 
     <style>
         input[type="number"] {
