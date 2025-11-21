@@ -13,7 +13,7 @@
 <body>
     <?php
     include_once("CommonCode.php");
-    NavigationBar($arrayOfTranslations["ContactBtn"]);
+    //NavigationBar($arrayOfTranslations["ContactBtn"]);
     ?>
 
     <section class="contact">

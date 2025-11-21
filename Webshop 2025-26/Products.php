@@ -15,7 +15,7 @@
 
     <?php
     include_once("CommonCode.php");
-    NavigationBar($arrayOfTranslations["ProductsBtn"]);
+    //NavigationBar($arrayOfTranslations["ProductsBtn"]);
     ?>
 
 

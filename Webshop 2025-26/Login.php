@@ -12,7 +12,7 @@
 <body>
     <?php
     include_once("CommonCode.php");
-    NavigationBar($arrayOfTranslations["LoginBtn"]);
+    //NavigationBar($arrayOfTranslations["LoginBtn"]);
 
     $message = "";
 
