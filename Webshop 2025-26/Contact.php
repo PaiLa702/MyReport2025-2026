@@ -13,7 +13,7 @@
 <body>
     <?php
     include_once("CommonCode.php");
-    //NavigationBar($arrayOfTranslations["ContactBtn"]);
+    NavigationBar($arrayOfTranslations["ContactBtn"]);
     ?>
 
     <section class="contact">
@@ -46,8 +46,8 @@
     </section>
 
     <?php
-    var_dump($_GET);
-    var_dump($_POST);
+    //var_dump($_GET);
+    //var_dump($_POST);
 
     if (isset($_GET["name"])) {
     ?>

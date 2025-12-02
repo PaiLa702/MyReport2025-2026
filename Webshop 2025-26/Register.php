@@ -13,7 +13,7 @@
 <body>
     <?php
     include_once("CommonCode.php");
-    //NavigationBar($arrayOfTranslations["RegisterBtn"]);
+    NavigationBar($arrayOfTranslations["RegisterBtn"]);
 
     $showForm = true;
 

@@ -1,97 +1,113 @@
 <?php
-
 session_start();
 
+// Logout
 if (isset($_POST["logout"])) {
     session_unset();
     session_destroy();
     session_start();
 }
 
-
-//var_dump($_SESSION);
+// User login state
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
 }
 
+// Language
+$language = isset($_GET["lang"]) ? $_GET["lang"] : "EN";
 
-
-$language = "EN";
-if (isset($_GET["lang"])) {
-    $language = $_GET["lang"];
-}
-
-
-
+// Load translations
 $arrayOfTranslations = [];
-
 $fileTranslations = fopen("Translations.csv", "r");
-while (!feof($fileTranslations)) {
-    $lineFromFile = fgets($fileTranslations);
-    $piecesOfTranslations = explode(";", $lineFromFile);
 
+while (($line = fgets($fileTranslations)) !== false) {
 
-    if ($language == "EN") {
-        $arrayOfTranslations[$piecesOfTranslations[0]] = ($piecesOfTranslations[1]);
-    } else {
-        $arrayOfTranslations[$piecesOfTranslations[0]] = ($piecesOfTranslations[2]);
-    }
+    $line = trim($line);
+    if ($line === "") continue;
+
+    $pieces = explode(";", $line);
+    if (count($pieces) < 3) continue;
+
+    $key = $pieces[0];
+    $arrayOfTranslations[$key] = ($language === "EN") ? $pieces[1] : $pieces[2];
 }
 
+fclose($fileTranslations);
+
+
+// ------------------------------------------------
+// NAVIGATION BAR FUNCTION
+// ------------------------------------------------
+function NavigationBar($callingPage)
+{
+    global $arrayOfTranslations, $language;
 ?>
+    <div class="navBar">
 
-<div class="navBar">
-    <?php
+        <a href="Home.php?lang=<?= $language ?>"
+            <?= ($callingPage === $arrayOfTranslations["HomeBtn"]) ? "class='highlight'" : "" ?>>
+            <?= $arrayOfTranslations["HomeBtn"] ?>
+        </a>
 
-    ?>
+        <a href="Contact.php?lang=<?= $language ?>"
+            <?= ($callingPage === $arrayOfTranslations["ContactBtn"]) ? "class='highlight'" : "" ?>>
+            <?= $arrayOfTranslations["ContactBtn"] ?>
+        </a>
 
-    <a <?= ($callingPage == $arrayOfTranslations["HomeBtn"]) ? "class='highlight'" : ""; ?>
-        href="Home.php?lang=<?= $language ?> < $language ?>"> <?= $arrayOfTranslations["HomeBtn"] ?></a>
+        <a href="Products.php?lang=<?= $language ?>"
+            <?= ($callingPage === $arrayOfTranslations["ProductBtn"]) ? "class='highlight'" : "" ?>>
+            <?= $arrayOfTranslations["ProductBtn"] ?>
+        </a>
 
-    <a <?= ($callingPage == $arrayOfTranslations["ContactBtn"]) ? "class='highlight'" : ""; ?>
-        href="Home.php?lang=<?= $language ?> < $language ?>"> <?= $arrayOfTranslations["ContactBtn"] ?></a>
+        <a href="Register.php?lang=<?= $language ?>"
+            <?= ($callingPage === $arrayOfTranslations["RegisterBtn"]) ? "class='highlight'" : "" ?>>
+            <?= $arrayOfTranslations["RegisterBtn"] ?>
+        </a>
 
-    <a <?= ($callingPage == $arrayOfTranslations["ProductBtn"]) ? "class='highlight'" : ""; ?>
-        href="Home.php?lang=<?= $language ?> < $language ?>"> <?= $arrayOfTranslations["ProductBtn"] ?></a>
+        <?php if (!$_SESSION["UserLogged"]) : ?>
+            <a href="Login.php?lang=<?= $language ?>"
+                <?= ($callingPage === $arrayOfTranslations["LoginBtn"]) ? "class='highlight'" : "" ?>>
+                <?= $arrayOfTranslations["LoginBtn"] ?>
+            </a>
+        <?php else: ?>
+            <span>Welcome, <?= $_SESSION["Username"] ?>!</span>
+        <?php endif; ?>
 
-    <a <?= ($callingPage == $arrayOfTranslations["RegisterBtn"]) ? "class='highlight'" : ""; ?>
-        href="Home.php?lang=<?= $language ?> < $language ?>"> <?= $arrayOfTranslations["RegisterBtn"] ?></a>
-    <?php
-    if (!$_SESSION["UserLogged"]) {
-    ?>
-        <a <?= ($callingPage == $arrayOfTranslations["LoginBtn"]) ? "class='highlight'" : ""; ?>
-            href="Login.php?lang=<?= $language ?>"> <?= $arrayOfTranslations["LoginBtn"] ?></a>
-    <?php
-    } else {
-        print("Welcome, " . $_SESSION["Username"] . "!");
-    ?>
-
-        <form>
+        <!-- Always-visible language selector -->
+        <form method="get" style="display:inline-block; margin-left:20px;">
             <select name="lang" onchange="this.form.submit()">
-                <option value="EN" <?php if ($language == "EN") print("selected"); ?>>English</option>
-                <option value="PT" <?php if ($language == "PT") print("selected"); ?>>Portuguese</option>
+                <option value="EN" <?= ($language == "EN") ? "selected" : "" ?>>English</option>
+                <option value="PT" <?= ($language == "PT") ? "selected" : "" ?>>Portuguese</option>
             </select>
         </form>
-</div>
 
+    </div>
 <?php
-    }
+}
 ?>
 
+
 <?php
+// --------------------------------------------------------
+// Helper function
+// --------------------------------------------------------
 function userAlreadyRegistered($checkedUser)
 {
-    $bReturnValue = false;
     $fHandler = fopen("Client.csv", "r");
+
     while (!feof($fHandler)) {
-        $newLine = fgets($fHandler);
-        $items = explode(";", $newLine);
+        $line = trim(fgets($fHandler));
+        if ($line == "") continue;
+
+        $items = explode(";", $line);
+
         if ($items[0] == $checkedUser) {
-            $bReturnValue = true;
+            fclose($fHandler);
+            return true;
         }
     }
-    fclose($fHandler);
-    return $bReturnValue;
-}
 
+    fclose($fHandler);
+    return false;
+}
 ?>

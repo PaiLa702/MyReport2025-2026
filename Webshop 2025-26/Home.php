@@ -12,16 +12,17 @@
 
     <?php
     include_once("CommonCode.php");
-    //NavigationBar($arrayOfTranslations["HomeBtn"]);
+    NavigationBar($arrayOfTranslations["HomeBtn"]);
     ?>
+
 
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 
     <div class="homepage">
-        
-        <h1><?= $arrayOfTranslations["HomeTitle"]?></h1>
-        <p><?= $arrayOfTranslations["HomeText"]?></p>
+
+        <h1><?= $arrayOfTranslations["HomeTitle"] ?></h1>
+        <p><?= $arrayOfTranslations["HomeText"] ?></p>
         <img src="Pictures/wizard.gif" style="width:300px; height:auto;">
     </div>
 
