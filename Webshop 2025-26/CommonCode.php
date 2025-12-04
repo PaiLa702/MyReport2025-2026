@@ -1,22 +1,22 @@
 <?php
 session_start();
 
-// Logout
+//Logout
 if (isset($_POST["logout"])) {
     session_unset();
     session_destroy();
     session_start();
 }
 
-// User login state
+//User login state
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
 }
 
-// Language
+//Language
 $language = isset($_GET["lang"]) ? $_GET["lang"] : "EN";
 
-// Load translations
+//Load translations
 $arrayOfTranslations = [];
 $fileTranslations = fopen("Translations.csv", "r");
 
@@ -35,9 +35,8 @@ while (($line = fgets($fileTranslations)) !== false) {
 fclose($fileTranslations);
 
 
-// ------------------------------------------------
+
 // NAVIGATION BAR FUNCTION
-// ------------------------------------------------
 function NavigationBar($callingPage)
 {
     global $arrayOfTranslations, $language;
@@ -88,12 +87,10 @@ function NavigationBar($callingPage)
 
 
 <?php
-// --------------------------------------------------------
 // Helper function
-// --------------------------------------------------------
 function userAlreadyRegistered($checkedUser)
 {
-    $fHandler = fopen("Client.csv", "r");
+    $fHandler = fopen("Clients.csv", "r");
 
     while (!feof($fHandler)) {
         $line = trim(fgets($fHandler));

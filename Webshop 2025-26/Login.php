@@ -10,62 +10,64 @@
 </head>
 
 <body>
-    <?php
-    include_once("CommonCode.php");
-    NavigationBar($arrayOfTranslations["LoginBtn"]);
-    ?>
+<?php
+include_once("CommonCode.php");
+NavigationBar($arrayOfTranslations["LoginBtn"]);
 
-    <?php
-    $message = "";
+$message = "";
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = trim($_POST["username"]);
-        $password = trim($_POST["password"]);
-        $foundUser = false;
+    $username = trim($_POST["username"]);
+    $password = trim($_POST["password"]);
 
+    $loginSuccess = false;
 
-        if (($fileHandler = fopen("Clients.csv", "r")) !== false) {
-            while (($data = fgetcsv($fileHandler, 1000, ";")) !== false) {
+    if (($fileHandler = fopen("Clients.csv", "r")) !== false) {
 
-                if (count($data) >= 4) {
-                    $storedUsername = trim($data[0]);
-                    $storedPassword = trim($data[3]);
+        while (($data = fgetcsv($fileHandler, 1000, ";")) !== false) {
 
-                    if ($username === $storedUsername && $password === $storedPassword) {
-                        $foundUser = true;
-                        break;
+            if (count($data) >= 4) {
+
+                $storedUsername = trim($data[0]);
+                $storedPasswordHash = trim($data[3]); //STORED HASH 
+
+                if ($username === $storedUsername) {
+
+                    //VERIFY HASHED PASSWORD
+                    if (password_verify($password, $storedPasswordHash)) {
+                        $loginSuccess = true;
                     }
+                    break;
                 }
             }
-            fclose($fileHandler);
         }
-
-
-        if ($username === $storedUsername && $password === $storedPassword) {
-            $message = "<div class='success'>" . $arrayOfTranslations["LoginMessageSuccess"] . "</div>";
-        } else {
-            $message = "<div class='error'>" . $arrayOfTranslations["LoginMessageError"] . "</div>";
-        }
+        fclose($fileHandler);
     }
-    ?>
 
-    <div class="login-container">
-        <h2><?= $arrayOfTranslations["LoginTitle"] ?></h2>
+    if ($loginSuccess) {
+        $message = "<div class='success'>" . $arrayOfTranslations["LoginMessageSuccess"] . "</div>";
+    } else {
+        $message = "<div class='error'>" . $arrayOfTranslations["LoginMessageError"] . "</div>";
+    }
+}
+?>
 
-        <form method="POST" action="Login.php">
-            <label for="username"><?= $arrayOfTranslations["LoginUsername"] ?></label>
-            <input type="text" id="username" name="username" placeholder="<?= $arrayOfTranslations["LoginUsernameEnter"] ?>" required>
+<div class="login-container">
+    <h2><?= $arrayOfTranslations["LoginTitle"] ?></h2>
 
-            <label for="password"><?= $arrayOfTranslations["LoginPassword"] ?></label>
-            <input type="password" id="password" name="password" placeholder="<?= $arrayOfTranslations["LoginPasswordEnter"] ?>" required>
+    <form method="POST" action="Login.php">
+        <label for="username"><?= $arrayOfTranslations["LoginUsername"] ?></label>
+        <input type="text" id="username" name="username" placeholder="<?= $arrayOfTranslations["LoginUsernameEnter"] ?>" required>
 
-            <button type="submit"><?= $arrayOfTranslations["LoginBtn"] ?></button>
-        </form>
+        <label for="password"><?= $arrayOfTranslations["LoginPassword"] ?></label>
+        <input type="password" id="password" name="password" placeholder="<?= $arrayOfTranslations["LoginPasswordEnter"] ?>" required>
 
-        <?= $message ?>
-    </div>
+        <button type="submit"><?= $arrayOfTranslations["LoginBtn"] ?></button>
+    </form>
+
+    <?= $message ?>
+</div>
 
 </body>
-
 </html>
