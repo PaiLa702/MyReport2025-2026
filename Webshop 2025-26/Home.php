@@ -15,8 +15,6 @@
     NavigationBar($arrayOfTranslations["HomeBtn"]);
     ?>
 
-
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 
     <div class="homepage">

@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         //HASH PASSWORD SECURE
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        //Write to CSV
+        //WRITE TO CSV
         $fileHandler = fopen("Clients.csv", "a");
         fwrite(
             $fileHandler,

@@ -1,22 +1,22 @@
 <?php
 session_start();
 
-//Logout
+//LOGOUT
 if (isset($_POST["logout"])) {
     session_unset();
     session_destroy();
     session_start();
 }
 
-//User login state
+//USER LOGIN STATE
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
 }
 
-//Language
+//LANGUAGE
 $language = isset($_GET["lang"]) ? $_GET["lang"] : "EN";
 
-//Load translations
+//LOAD TRANSLATIONS
 $arrayOfTranslations = [];
 $fileTranslations = fopen("Translations.csv", "r");
 
@@ -72,7 +72,7 @@ function NavigationBar($callingPage)
             <span>Welcome, <?= $_SESSION["Username"] ?>!</span>
         <?php endif; ?>
 
-        <!-- Always-visible language selector -->
+        <!-- ALWAYS VISIBLE LANGUAGE SELECTOR -->
         <form method="get" style="display:inline-block; margin-left:20px;">
             <select name="lang" onchange="this.form.submit()">
                 <option value="EN" <?= ($language == "EN") ? "selected" : "" ?>>English</option>
@@ -87,7 +87,7 @@ function NavigationBar($callingPage)
 
 
 <?php
-// Helper function
+//HELPER FUNCTION
 function userAlreadyRegistered($checkedUser)
 {
     $fHandler = fopen("Clients.csv", "r");
