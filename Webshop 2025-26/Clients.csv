@@ -1,4 +1,2 @@
-username;displayname;email;password
-bib;bib;bib@gmail.com;$2y$10$k7X4DyyVn/4F.fTrMvr7U.l/UqrY4ODWNQWcU1pyjhqw61gLdbfLS
-bob;bob;bob@gmail.com;$2y$10$s1lI6W05ETLdXRSs0pojqu167vRMmeXBhMiJvc.DRP8.o8mY/TL7W
-anya;uwu;uwu@gmail.com;$2y$10$1pgSGyiqCACI.vKG9m2toODFee9DV53IpuYRLqeL9THAJ0Tuna/n6
+username;displayname;email;password;usertype
+bib;bib;bib@gmail.com;$2y$10$ngp3A7AySsBFgdtZtdnLEeNkr4nUXB4s0yPEsyDkiiNe5qLR7USiu;regular

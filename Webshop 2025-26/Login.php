@@ -10,64 +10,78 @@
 </head>
 
 <body>
-<?php
-include_once("CommonCode.php");
-NavigationBar($arrayOfTranslations["LoginBtn"]);
 
-$message = "";
+    <?php
+    include_once("CommonCode.php");
+    NavigationBar($arrayOfTranslations["LoginBtn"]);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $message = "";
 
-    $username = trim($_POST["username"]);
-    $password = trim($_POST["password"]);
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $loginSuccess = false;
+        $username = trim($_POST["username"]);
+        $password = trim($_POST["password"]);
 
-    if (($fileHandler = fopen("Clients.csv", "r")) !== false) {
+        $loginSuccess = false;
 
-        while (($data = fgetcsv($fileHandler, 1000, ";")) !== false) {
+        if (($fileHandler = fopen("Clients.csv", "r")) !== false) {
 
-            if (count($data) >= 4) {
+            while (($data = fgetcsv($fileHandler, 1000, ";")) !== false) {
 
-                $storedUsername = trim($data[0]);
-                $storedPasswordHash = trim($data[3]); //STORED HASH 
 
-                if ($username === $storedUsername) {
+                if (count($data) >= 5) {
 
-                    //VERIFY HASHED PASSWORD
-                    if (password_verify($password, $storedPasswordHash)) {
-                        $loginSuccess = true;
+                    $storedUsername = trim($data[0]);
+                    $storedPasswordHash = trim($data[3]);
+                    $storedUserType = trim($data[4]);
+
+                    if ($username === $storedUsername) {
+
+                        if (password_verify($password, $storedPasswordHash)) {
+
+                            $loginSuccess = true;
+
+                            //Set session variables
+                            $_SESSION["UserLogged"] = true;
+                            $_SESSION["Username"] = $storedUsername;
+                            $_SESSION["UserType"] = $storedUserType;
+                            header("Location: Home.php?lang=" . $lang);
+                        }
+
+                        break;
                     }
-                    break;
                 }
             }
+
+            fclose($fileHandler);
         }
-        fclose($fileHandler);
+
+        if ($loginSuccess) {
+            $message = "<div class='success'>" . $arrayOfTranslations["LoginMessageSuccess"] . "</div>";
+        } else {
+            $message = "<div class='error'>" . $arrayOfTranslations["LoginMessageError"] . "</div>";
+        }
     }
+    ?>
 
-    if ($loginSuccess) {
-        $message = "<div class='success'>" . $arrayOfTranslations["LoginMessageSuccess"] . "</div>";
-    } else {
-        $message = "<div class='error'>" . $arrayOfTranslations["LoginMessageError"] . "</div>";
-    }
-}
-?>
+    <div class="login-container">
+        <h2><?= $arrayOfTranslations["LoginTitle"] ?></h2>
 
-<div class="login-container">
-    <h2><?= $arrayOfTranslations["LoginTitle"] ?></h2>
+        <form method="POST" action="Login.php?lang=<?= $language ?>">
+            <label for="username"><?= $arrayOfTranslations["LoginUsername"] ?></label>
+            <input type="text" id="username" name="username"
+                placeholder="<?= $arrayOfTranslations["LoginUsernameEnter"] ?>" required>
 
-    <form method="POST" action="Login.php">
-        <label for="username"><?= $arrayOfTranslations["LoginUsername"] ?></label>
-        <input type="text" id="username" name="username" placeholder="<?= $arrayOfTranslations["LoginUsernameEnter"] ?>" required>
+            <label for="password"><?= $arrayOfTranslations["LoginPassword"] ?></label>
+            <input type="password" id="password" name="password"
+                placeholder="<?= $arrayOfTranslations["LoginPasswordEnter"] ?>" required>
 
-        <label for="password"><?= $arrayOfTranslations["LoginPassword"] ?></label>
-        <input type="password" id="password" name="password" placeholder="<?= $arrayOfTranslations["LoginPasswordEnter"] ?>" required>
+            <button type="submit"><?= $arrayOfTranslations["LoginBtn"] ?></button>
+        </form>
 
-        <button type="submit"><?= $arrayOfTranslations["LoginBtn"] ?></button>
-    </form>
-
-    <?= $message ?>
-</div>
+        <?= $message ?>
+    </div>
 
 </body>
+
 </html>
