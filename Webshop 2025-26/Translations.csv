@@ -41,3 +41,4 @@ LoginMessageSuccess;You are logged in, mighty alchemist!;Você está conectado, 
 LoginMessageError;Invalid username or password. Please try again.;Nome de utilizador ou senha inválidos. Por favor, tente novamente.
 WelcomeLabel;Welcome, ;Bemvindo,
 LogoutBtn;Logout;Sair
+AdminBtn;Admin Panel;Painel de Admin

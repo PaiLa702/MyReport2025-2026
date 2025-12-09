@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="ShopStyles.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="Products.css?v=<?php echo time(); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 <body>
 
     <?php
-    include_once("CommonCode.php");
+    include_once("CommonCode.php"); includeCSS("Products.css");
     NavigationBar($arrayOfTranslations["ProductBtn"]);
     ?>
 
