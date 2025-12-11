@@ -12,11 +12,9 @@ if (!$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
 NavigationBar($arrayOfTranslations["AdminBtn"] ?? "Admin Panel");
 
 $message = "";
-
+$imageLink = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-
     $productNameEN = trim($_POST["productNameEN"]);
     $productNamePT = trim($_POST["productNamePT"]);
     $price = trim($_POST["price"]);
@@ -26,12 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $effectPT = trim($_POST["effectPT"]);
 
     //File upload handling
-    $imageLink = "";
     if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = ['image/png' => 'png', 'image/jpeg' => 'jpg'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
-        $uploadDir = __DIR__ . '/uploads';
-        if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+        $maxSize = 5 * 1024 * 1024; //5MB
+
+        $uploadDir = __DIR__ . '/Pictures'; //Use existing folder
 
         $fileTmp = $_FILES['imageFile']['tmp_name'];
         $fileType = mime_content_type($fileTmp);
@@ -46,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $destination = $uploadDir . '/' . $newName;
 
             if (move_uploaded_file($fileTmp, $destination)) {
-                $imageLink = "uploads/$newName";
+                $imageLink = "$newName";
             } else {
                 $message = "<div class='error'>Error saving the uploaded file.</div>";
             }
@@ -74,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-
     <div class="register" style="max-width:600px; margin:50px auto;">
         <h2>Admin Panel - Create Product</h2>
 
@@ -108,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit">Add Product</button>
         </form>
     </div>
-
 </body>
 
 </html>
