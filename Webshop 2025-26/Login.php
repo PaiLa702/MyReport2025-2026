@@ -12,7 +12,8 @@
 <body>
 
     <?php
-    include_once("CommonCode.php"); includeCSS("Login.css");
+    include_once("CommonCode.php");
+    includeCSS("Login.css");
 
     NavigationBar($arrayOfTranslations["LoginBtn"]);
 

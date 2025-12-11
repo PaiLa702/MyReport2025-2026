@@ -14,12 +14,13 @@
 <body>
 
     <?php
-    include_once("CommonCode.php"); includeCSS("Products.css");
+    include_once("CommonCode.php");
+    includeCSS("Products.css");
     NavigationBar($arrayOfTranslations["ProductBtn"]);
     ?>
 
 
-    <h2><?= $arrayOfTranslations["ProductTitle"]?></h2>
+    <h2><?= $arrayOfTranslations["ProductTitle"] ?></h2>
 
     <style>
         input[type="number"] {
@@ -28,7 +29,7 @@
         }
     </style>
 
-        <div class="ProductItems">
+    <div class="ProductItems">
         <?php
         $fileProducts = fopen("Products.csv", "r");
         fgets($fileProducts);
@@ -48,7 +49,7 @@
             }
         }
         ?>
-        </div>
+    </div>
 
 </body>
 

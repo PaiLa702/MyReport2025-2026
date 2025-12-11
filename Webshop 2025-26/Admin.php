@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Panel | Pixel Potion Shop</title>
-    <link rel="stylesheet" type="text/css" href="Admin.css?v=<?php echo time(); ?>">
-
-</head>
-
-<body>
 <?php
-include_once("CommonCode.php"); includeCSS("Admin.css");
+include_once("CommonCode.php");
+includeCSS("Admin.css");
 
-// Check if user is Admin
+//Check if user is Admin
 if (!$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
     echo "<p style='text-align:center; margin-top:50px; color:red;'>Access denied. Admins only.</p>";
     echo "<p style='text-align:center;'><a href='Home.php?lang=$language'>Return Home</a></p>";
@@ -21,60 +11,104 @@ if (!$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
 
 NavigationBar($arrayOfTranslations["AdminBtn"] ?? "Admin Panel");
 
-
 $message = "";
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+
     $productNameEN = trim($_POST["productNameEN"]);
     $productNamePT = trim($_POST["productNamePT"]);
-    $imageLink = trim($_POST["imageLink"]);
     $price = trim($_POST["price"]);
     $descriptionEN = trim($_POST["descriptionEN"]);
     $effectEN = trim($_POST["effectEN"]);
     $descriptionPT = trim($_POST["descriptionPT"]);
     $effectPT = trim($_POST["effectPT"]);
 
-    if ($productNameEN && $productNamePT && $imageLink && $price) {
+    //File upload handling
+    $imageLink = "";
+    if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
+        $allowedTypes = ['image/png' => 'png', 'image/jpeg' => 'jpg'];
+        $maxSize = 5 * 1024 * 1024; // 5MB
+        $uploadDir = __DIR__ . '/uploads';
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+        $fileTmp = $_FILES['imageFile']['tmp_name'];
+        $fileType = mime_content_type($fileTmp);
+
+        if (!array_key_exists($fileType, $allowedTypes)) {
+            $message = "<div class='error'>Invalid file type. Only PNG and JPEG allowed.</div>";
+        } elseif (filesize($fileTmp) > $maxSize) {
+            $message = "<div class='error'>File too large. Max 5MB allowed.</div>";
+        } else {
+            $ext = $allowedTypes[$fileType];
+            $newName = preg_replace("/[^a-zA-Z0-9_-]/", "", pathinfo($_FILES['imageFile']['name'], PATHINFO_FILENAME)) . "." . $ext;
+            $destination = $uploadDir . '/' . $newName;
+
+            if (move_uploaded_file($fileTmp, $destination)) {
+                $imageLink = "uploads/$newName";
+            } else {
+                $message = "<div class='error'>Error saving the uploaded file.</div>";
+            }
+        }
+    }
+
+    //Save to CSV if all fields are valid
+    if ($productNameEN && $productNamePT && $price && $imageLink && $message === "") {
         $fileHandler = fopen("Products.csv", "a");
         fwrite($fileHandler, "\n$productNameEN;$imageLink;$price;$descriptionEN;$effectEN;$descriptionPT;$effectPT;$productNamePT");
         fclose($fileHandler);
         $message = "<div class='success'>Product successfully added!</div>";
-    } else {
+    } elseif ($message === "") {
         $message = "<div class='error'>Please fill in all required fields.</div>";
     }
 }
 ?>
 
-<div class="register" style="max-width:600px; margin:50px auto;">
-    <h2>Admin Panel - Create Product</h2>
-    <?= $message ?>
-    <form method="POST">
-        <label>Product Name (EN)</label>
-        <input type="text" name="productNameEN" required>
+<!DOCTYPE html>
+<html lang="en">
 
-        <label>Product Name (PT)</label>
-        <input type="text" name="productNamePT" required>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | Pixel Potion Shop</title>
+</head>
 
-        <label>Image Link</label>
-        <input type="text" name="imageLink" required>
+<body>
 
-        <label>Price (EUR)</label>
-        <input type="number" name="price" step="0.01" required>
+    <div class="register" style="max-width:600px; margin:50px auto;">
+        <h2>Admin Panel - Create Product</h2>
 
-        <label>Description (EN)</label>
-        <input type="text" name="descriptionEN">
+        <?= $message ?>
 
-        <label>Effect (EN)</label>
-        <input type="text" name="effectEN">
+        <form method="POST" enctype="multipart/form-data">
+            <label>Product Name (EN)</label>
+            <input type="text" name="productNameEN" required>
 
-        <label>Description (PT)</label>
-        <input type="text" name="descriptionPT">
+            <label>Product Name (PT)</label>
+            <input type="text" name="productNamePT" required>
 
-        <label>Effect (PT)</label>
-        <input type="text" name="effectPT">
+            <label>Price (EUR)</label>
+            <input type="number" name="price" step="0.01" required>
 
-        <button type="submit">Add Product</button>
-    </form>
-</div>
+            <label>Description (EN)</label>
+            <input type="text" name="descriptionEN">
+
+            <label>Effect (EN)</label>
+            <input type="text" name="effectEN">
+
+            <label>Description (PT)</label>
+            <input type="text" name="descriptionPT">
+
+            <label>Effect (PT)</label>
+            <input type="text" name="effectPT">
+
+            <label>Product Image (PNG or JPEG, max 5MB)</label>
+            <input type="file" name="imageFile" accept="image/png, image/jpeg" required>
+
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
 
 </body>
+
 </html>

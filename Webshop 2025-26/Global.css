@@ -1,6 +1,4 @@
-/* GLOBAL STYLES */
-
-/* Body and background */
+/*Body and background*/
 body {
     background: url("Pictures/BackGround.gif") no-repeat center center fixed;
     background-size: cover;
@@ -11,7 +9,7 @@ body {
     text-align: center;
 }
 
-/* Navigation Bar */
+/*Navigation Bar*/
 .navBar {
     background: rgba(30, 10, 60, 0.85);
     border-bottom: 2px solid rgba(180, 120, 255, 0.5);
@@ -47,7 +45,7 @@ body {
     box-shadow: 0 0 14px rgba(160, 100, 255, 0.6);
 }
 
-/* Language Selector */
+/*Language Selector*/
 .langSwitch {
     margin-left: auto;
     margin-right: 40px;
@@ -69,7 +67,7 @@ body {
     box-shadow: 0 0 10px rgba(180, 120, 255, 0.6);
 }
 
-/* Headings */
+/*Headings*/
 h2 {
     font-family: 'Cinzel Decorative', cursive;
     font-size: 2.4rem;
@@ -96,12 +94,20 @@ h2::after {
 }
 
 @keyframes shimmer {
-    0% { text-shadow: 0 0 6px rgba(91, 60, 250, 0.5), 0 0 20px rgba(173, 109, 255, 0.3); }
-    50% { text-shadow: 0 0 14px rgba(91, 60, 250, 0.8), 0 0 30px rgba(173, 109, 255, 0.6); }
-    100% { text-shadow: 0 0 6px rgba(91, 60, 250, 0.5), 0 0 20px rgba(173, 109, 255, 0.3); }
+    0% {
+        text-shadow: 0 0 6px rgba(91, 60, 250, 0.5), 0 0 20px rgba(173, 109, 255, 0.3);
+    }
+
+    50% {
+        text-shadow: 0 0 14px rgba(91, 60, 250, 0.8), 0 0 30px rgba(173, 109, 255, 0.6);
+    }
+
+    100% {
+        text-shadow: 0 0 6px rgba(91, 60, 250, 0.5), 0 0 20px rgba(173, 109, 255, 0.3);
+    }
 }
 
-/* Input numbers (for Products) */
+/*Input numbers (for Products)*/
 input[type="number"] {
     background: rgba(140, 100, 255, 0.2);
     border: 1px solid rgba(200, 150, 255, 0.4);
@@ -123,7 +129,7 @@ input[type="number"]:focus {
     box-shadow: 0 0 8px #d1a8ff;
 }
 
-/* Product grid */
+/*Product grid*/
 .ProductItems {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -171,14 +177,30 @@ input[type="number"]:focus {
     text-shadow: 0 0 6px rgba(180, 120, 255, 0.8);
 }
 
-/* Media queries for responsiveness */
+/*Media queries for responsiveness*/
 @media (max-width: 1100px) {
-    .ProductItems { padding: 40px 50px; gap: 40px; }
-    .OneProduct { width: 300px; }
+    .ProductItems {
+        padding: 40px 50px;
+        gap: 40px;
+    }
+
+    .OneProduct {
+        width: 300px;
+    }
 }
 
 @media (max-width: 700px) {
-    h2 { font-size: 2.2rem; }
-    .OneProduct { width: 280px; padding: 2rem; }
-    .OneProduct img { width: 180px; height: 180px; }
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .OneProduct {
+        width: 280px;
+        padding: 2rem;
+    }
+
+    .OneProduct img {
+        width: 180px;
+        height: 180px;
+    }
 }

@@ -11,7 +11,8 @@
 
 <body>
     <?php
-    include_once("CommonCode.php");includeCSS("Register.css");
+    include_once("CommonCode.php");
+    includeCSS("Register.css");
 
     NavigationBar($arrayOfTranslations["RegisterBtn"]);
 

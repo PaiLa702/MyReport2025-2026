@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-    
+
 
 </head>
 
 <body>
     <?php
-    include_once("CommonCode.php"); includeCSS("Contact.css");
+    include_once("CommonCode.php");
+    includeCSS("Contact.css");
 
     NavigationBar($arrayOfTranslations["ContactBtn"]);
     ?>

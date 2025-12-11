@@ -11,7 +11,8 @@
 <body>
 
     <?php
-    include_once("CommonCode.php"); includeCSS("home.css");
+    include_once("CommonCode.php");
+    includeCSS("home.css");
 
     NavigationBar($arrayOfTranslations["HomeBtn"]);
     ?>
