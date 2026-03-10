@@ -17,6 +17,7 @@
     include_once("CommonCode.php");
     includeCSS("Products.css");
     NavigationBar($arrayOfTranslations["ProductBtn"]);
+    $connection = new mysqli("localhost", "root","","Webshop2025_26");
     ?>
 
 
@@ -31,19 +32,18 @@
 
     <div class="ProductItems">
         <?php
-        $fileProducts = fopen("Products.csv", "r");
-        fgets($fileProducts);
-        while (!feof($fileProducts)) {
-            $oneProduct = fgets($fileProducts);
-            $individualItemComponents = explode(";", $oneProduct);
-            if (count($individualItemComponents) == 8) {
+       $sqlQuery = $connection->prepare("SELECT * FROM products;");
+        $sqlQuery->execute();
+        $result = $sqlQuery->get_result();
+        while ($row=$result->fetch_assoc()) {
+            if (count($row) == 9) {
         ?>
                 <div class="OneProduct">
-                    <div><?= $individualItemComponents[$language == "EN" ? 0 : 7] ?></div>
-                    <img src=" Pictures/<?= $individualItemComponents[1] ?>">
-                    <div><?= $individualItemComponents[$language == "EN" ? 3 : 5] ?></div>
-                    <div><?= $individualItemComponents[$language == "EN" ? 4 : 6] ?></div>
-                    <div><?= $individualItemComponents[2] ?>EUR</div>
+                    <div><?= $row[$language == "EN" ? "ProductNameEN" : "ProductNamePT"] ?></div>
+                    <img src=" Pictures/<?= $row["ImageLink"] ?>">
+                    <div><?= $row[$language == "EN" ? "DescriptionEN" : "DescriptionPT"] ?></div>
+                    <div><?= $row[$language == "EN" ? "EffectEN" : "EffectPT"] ?></div>
+                    <div><?= $row["Price"] ?>EUR</div>
                 </div>
         <?php
             }

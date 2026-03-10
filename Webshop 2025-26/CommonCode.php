@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ $connection = new mysqli("localhost", "root","","webshop2025_26");
 //Initialize session
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
@@ -15,18 +15,19 @@ if (!isset($_SESSION["UserType"])) {
 $language = isset($_GET["lang"]) ? $_GET["lang"] : "EN";
 
 $arrayOfTranslations = [];
-$fileTranslations = fopen("Translations.csv", "r");
 
-while (($line = fgets($fileTranslations)) !== false) {
-    $line = trim($line);
-    if ($line === "") continue;
-    $pieces = explode(";", $line);
-    if (count($pieces) < 3) continue;
-    $key = $pieces[0];
-    $arrayOfTranslations[$key] = ($language === "EN") ? $pieces[1] : $pieces[2];
+$sqlQuery = $connection->prepare("SELECT * FROM translations;");
+$sqlQuery->execute();
+$result = $sqlQuery->get_result();
+
+
+while ($row=$result->fetch_assoc()) {
+    if (count($row) < 3) continue;
+    $key = $row["TranslationKey"];
+    $arrayOfTranslations[$key] = ($language === "EN") ? $row["EnglishText"] : $row["PortugueseText"];
 }
 
-fclose($fileTranslations);
+
 
 //Navigation Bar
 function NavigationBar($callingPage)
