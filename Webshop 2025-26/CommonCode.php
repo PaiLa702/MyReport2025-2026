@@ -86,6 +86,7 @@ function NavigationBar($callingPage)
 //Check if user already registered
 function userAlreadyRegistered($checkedUser)
 {
+    $connection = new mysqli("localhost", "root","","webshop2025_26");
     $fHandler = fopen("Clients.csv", "r");
     while (!feof($fHandler)) {
         $line = trim(fgets($fHandler));

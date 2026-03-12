@@ -12,7 +12,8 @@
 <body>
     <?php
     include_once("CommonCode.php");
-    includeCSS("Register.css");
+    includeCSS("Register.css");;
+
 
     NavigationBar($arrayOfTranslations["RegisterBtn"]);
 
@@ -34,17 +35,19 @@
             echo "<p>❌ Adventurer name already exists in the guild registry.</p></div>";
         } else {
 
-            //Hash password
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Hash password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            //Write to CSV file
-            $fileHandler = fopen("Clients.csv", "a");
-            fwrite(
-                $fileHandler,
-                "\n" . $username . ";" . $displayname . ";" . $email . ";" . $hashedPassword . ";regular"
-            );
+        
+        $userType = "regular";
 
-            fclose($fileHandler);
+        
+        $connection = new mysqli("localhost", "root", "", "webshop2025_26");
+        $sqlQuery = $connection->prepare("INSERT INTO users (Username, DisplayName, Email, UserPassword, UserType) VALUES (?, ?, ?, ?, ?);");
+
+        
+        $sqlQuery->bind_param("sssss", $username, $displayname, $email, $hashedPassword, $userType);
+        $sqlQuery->execute();
 
             echo "<p>✅ Welcome, <strong>$displayname</strong>!<br>";
             echo "Your information has been added to the guild archives.</p></div>";
