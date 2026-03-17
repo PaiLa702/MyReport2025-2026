@@ -42,3 +42,5 @@ LoginMessageError;Invalid username or password. Please try again.;Nome de utiliz
 WelcomeLabel;Welcome, ;Bemvindo,
 LogoutBtn;Logout;Sair
 AdminBtn;Admin Panel;Painel de Admin
+BuyBtn;Buy;Comprar
+ShopCartTitle;Shop Cart Contents;Conteúdo do Carrinho de Compras

@@ -56,3 +56,39 @@ input[type="number"] {
     font-family: 'VT323', monospace;
     font-size: 1rem;
 }
+
+/* Styling the quantity box to match your theme */
+input[type="number"] {
+    background-color: #8e6fff69;
+    color: #fff;
+    border: 2px solid #5d44ab;
+    padding: 5px;
+    width: 50px;
+    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+}
+
+.buy-container {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buy-button {
+    background-color: #5d44ab;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    transition: 0.3s;
+}
+
+.buy-button:hover {
+    background-color: #7a5cdb;
+    transform: scale(1.05);
+}

@@ -26,38 +26,44 @@
 
         $loginSuccess = false;
 
-        if (($fileHandler = fopen("Clients.csv", "r")) !== false) {
+        
+        $connection = new mysqli("localhost", "root", "", "webshop2025_26");
 
-            while (($data = fgetcsv($fileHandler, 1000, ";")) !== false) {
-
-
-                if (count($data) >= 5) {
-
-                    $storedUsername = trim($data[0]);
-                    $storedPasswordHash = trim($data[3]);
-                    $storedUserType = trim($data[4]);
-
-                    if ($username === $storedUsername) {
-
-                        if (password_verify($password, $storedPasswordHash)) {
-
-                            $loginSuccess = true;
-
-                            //Set session variables
-                            $_SESSION["UserLogged"] = true;
-                            $_SESSION["Username"] = $storedUsername;
-                            $_SESSION["UserType"] = $storedUserType;
-                            header("Location: Home.php?lang=" . $lang);
-                        }
-
-                        break;
-                    }
-                }
-            }
-
-            fclose($fileHandler);
+        if ($connection->connect_error) {
+            die("Connection failed: " . $connection->connect_error);
         }
 
+        
+        $sqlQuery = $connection->prepare("SELECT UserPassword, UserType FROM users WHERE Username = ? LIMIT 1");
+        $sqlQuery->bind_param("s", $username);
+        $sqlQuery->execute();
+        $result = $sqlQuery->get_result();
+
+        
+        if ($result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            $storedPasswordHash = $row['UserPassword'];
+            $storedUserType = $row['UserType'];
+
+            
+            if (password_verify($password, $storedPasswordHash)) {
+                $loginSuccess = true;
+
+                
+                $_SESSION["UserLogged"] = true;
+                $_SESSION["Username"] = $username;
+                $_SESSION["UserType"] = $storedUserType;
+                
+                // Redirect to Home
+                header("Location: Home.php?lang=" . $lang);
+                exit(); 
+            }
+        }
+
+        $sqlQuery->close();
+        $connection->close();
+
+        
         if ($loginSuccess) {
             $message = "<div class='success'>" . $arrayOfTranslations["LoginMessageSuccess"] . "</div>";
         } else {

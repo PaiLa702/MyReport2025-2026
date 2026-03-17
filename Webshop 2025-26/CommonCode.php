@@ -1,6 +1,23 @@
 <?php
 session_start();
  $connection = new mysqli("localhost", "root","","webshop2025_26");
+ if(isset($_SESSION["Cart"])) {
+    
+}
+
+else {
+    $_SESSION["Cart"] = [];
+}
+
+if (isset($_POST["itemToBuy"]) && isset($_POST["quantityToBuy"])) {
+    if (!isset($_SESSION["Cart"]["itemToBuy"])) {
+      $_SESSION["Cart"]["itemToBuy"] = $_SESSION["Cart"]["itemToBuy"] + $_POST["quantityToBuy"];
+    }
+    else {
+         $_SESSION["Cart"]["itemToBuy"] += $_POST["quantityToBuy"];
+    }
+}
+
 //Initialize session
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
@@ -79,6 +96,8 @@ function NavigationBar($callingPage)
                 <option value="PT" <?= ($language == "PT") ? "selected" : "" ?>>Portuguese</option>
             </select>
         </form>
+
+        <a href="ShopCartContents.php"><img width="50px" src="Pictures/cart.png"></a>
     </div>
 <?php
 }
@@ -116,4 +135,14 @@ function includeCSS($pageCSS = "")
     echo '<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">' . PHP_EOL;
 }
 
+
+function getCartCount() {
+    $count = 0;
+    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $qty) {
+            $count += $qty;
+        }
+    }
+    return $count;
+}
 ?>
