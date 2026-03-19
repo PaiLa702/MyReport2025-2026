@@ -19,17 +19,25 @@
     ?>
 
     <h2><?= $pageTitle ?></h2>
+    
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
 
     <?php
-    foreach ($_SESSION['cart'] as $productId => $quantity) {
+    foreach ($_SESSION["Cart"] as $itemId => $itemQuantity) {
     ?>
-        <tr>
-            <td><?= $productId ?></td>
-            <td><?= $quantity ?></td>
-        </tr>
+    <tr>
+        <td><?= $itemId ?></td>
+        <td><?= $itemQuantity ?></td>
+    </tr>
     <?php
     }
     ?>
+
+    </table>
 
 </body>
 

@@ -9,12 +9,13 @@ else {
     $_SESSION["Cart"] = [];
 }
 
-if (isset($_POST["itemToBuy"]) && isset($_POST["quantityToBuy"])) {
-    if (!isset($_SESSION["Cart"]["itemToBuy"])) {
-      $_SESSION["Cart"]["itemToBuy"] = $_SESSION["Cart"]["itemToBuy"] + $_POST["quantityToBuy"];
+if (isset($_POST["itemToBuy"], $_POST["quantityToBuy"])) {
+    $item = $_POST["itemToBuy"];
+    if (isset($_SESSION["Cart"][$item])) {
+      $_SESSION["Cart"][$item] = $_SESSION["Cart"][$item] + $_POST["quantityToBuy"];
     }
     else {
-         $_SESSION["Cart"]["itemToBuy"] += $_POST["quantityToBuy"];
+         $_SESSION["Cart"][$item] = $_POST["quantityToBuy"];
     }
 }
 
@@ -97,7 +98,7 @@ function NavigationBar($callingPage)
             </select>
         </form>
 
-        <a href="ShopCartContents.php"><img width="50px" src="Pictures/cart.png"></a>
+        <a href="ShopCartContents.php?lang=<?= $language ?>"><img width="50px" src="Pictures/cart.png"></a>
     </div>
 <?php
 }
@@ -138,8 +139,8 @@ function includeCSS($pageCSS = "")
 
 function getCartCount() {
     $count = 0;
-    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $qty) {
+    if (isset($_SESSION["Cart"]) && !empty($_SESSION["Cart"])) {
+        foreach ($_SESSION["Cart"] as $qty) {
             $count += $qty;
         }
     }

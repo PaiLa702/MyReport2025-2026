@@ -14,30 +14,23 @@
     <?php
     include_once("CommonCode.php");
     includeCSS("Products.css");
-    
-    
     NavigationBar($arrayOfTranslations["ProductBtn"]);
     
-    
+    // Database connection
     $connection = new mysqli("localhost", "root", "", "Webshop2025_26");
-
-    
-    if ($connection->connect_error) {
-        die("Connection failed: " . $connection->connect_error);
-    }
     ?>
 
     <h2><?= $arrayOfTranslations["ProductTitle"] ?></h2>
 
     <div class="ProductItems">
         <?php
-        $sqlQuery = $connection->prepare("SELECT * FROM products;");
+        $sqlQuery = $connection->prepare("SELECT * FROM Products;");
         $sqlQuery->execute();
         $result = $sqlQuery->get_result();
 
         while ($row = $result->fetch_assoc()) {
-            
-            if (count($row) >= 9) {
+            // Check for at least 8 or 9 columns as per your DB structure
+            if (count($row) >= 8) {
                 $name = ($language == "EN") ? $row["ProductNameEN"] : $row["ProductNamePT"];
                 $desc = ($language == "EN") ? $row["DescriptionEN"] : $row["DescriptionPT"];
                 $effect = ($language == "EN") ? $row["EffectEN"] : $row["EffectPT"];
@@ -46,16 +39,16 @@
                 $id = $row["ProductID"]; 
         ?>
                 <div class="OneProduct">
-                    <h3><?= $name ?></h3>
-                    <img src="Pictures/<?= $image ?>" alt="<?= $name ?>">
-                    <p class="description"><?= $desc ?></p>
-                    <p class="effect"><em><?= $effect ?></em></p>
-                    <p class="price"><strong><?= $price ?> EUR</strong></p>
+                    <div><?= $name ?></div>
+                    <img src="Pictures/<?= $image ?>">
+                    <div><?= $desc ?></div>
+                    <div><?= $effect ?></div>
+                    <div><?= $price ?>EUR</div>
 
-                    <form method="POST" action="CartHandler.php" class="buy-container">
-                        <input type="number" placeholder="Qty" name="quantityToBuy">
-                        <input type="hidden" name="product_id" value="<?= $id ?>" name="itemToBuy">
-                        <input type="submit" value="BUY">
+                    <form method="POST" action="ShopCartContents.php?lang=<?= $language ?>" class="buy-container">
+                        <input type="number" value="1" min="1" name="quantityToBuy" style="background-color: #8e6fff69; color: black; width: 50px;">
+                        <input type="hidden" value="<?= $id ?>" name="itemToBuy">
+                        <input type="submit" value="BUY" class="buy-button">
                     </form>
                 </div>
         <?php
@@ -66,5 +59,4 @@
     </div>
 
 </body>
-
 </html>
