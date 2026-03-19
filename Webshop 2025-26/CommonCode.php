@@ -54,31 +54,36 @@ function NavigationBar($callingPage)
 ?>
     <div class="navBar">
         <a href="Home.php?lang=<?= $language ?>"
-            <?= ($callingPage === $arrayOfTranslations["HomeBtn"]) ? "class='highlight'" : "" ?>>
+            <?= ($callingPage === ($arrayOfTranslations["HomeBtn"] ?? "")) ? "class='highlight'" : "" ?>>
             <?= $arrayOfTranslations["HomeBtn"] ?>
         </a>
 
         <a href="Contact.php?lang=<?= $language ?>"
-            <?= ($callingPage === $arrayOfTranslations["ContactBtn"]) ? "class='highlight'" : "" ?>>
+            <?= ($callingPage === ($arrayOfTranslations["ContactBtn"] ?? "")) ? "class='highlight'" : "" ?>>
             <?= $arrayOfTranslations["ContactBtn"] ?>
         </a>
 
         <a href="Products.php?lang=<?= $language ?>"
-            <?= ($callingPage === $arrayOfTranslations["ProductBtn"]) ? "class='highlight'" : "" ?>>
+            <?= ($callingPage === ($arrayOfTranslations["ProductBtn"] ?? "")) ? "class='highlight'" : "" ?>>
             <?= $arrayOfTranslations["ProductBtn"] ?>
         </a>
 
         <?php if (!$_SESSION["UserLogged"]) : ?>
             <a href="Register.php?lang=<?= $language ?>"
-                <?= ($callingPage === $arrayOfTranslations["RegisterBtn"]) ? "class='highlight'" : "" ?>>
+                <?= ($callingPage === ($arrayOfTranslations["RegisterBtn"] ?? "")) ? "class='highlight'" : "" ?>>
                 <?= $arrayOfTranslations["RegisterBtn"] ?>
             </a>
             <a href="Login.php?lang=<?= $language ?>"
-                <?= ($callingPage === $arrayOfTranslations["LoginBtn"]) ? "class='highlight'" : "" ?>>
+                <?= ($callingPage === ($arrayOfTranslations["LoginBtn"] ?? "")) ? "class='highlight'" : "" ?>>
                 <?= $arrayOfTranslations["LoginBtn"] ?>
             </a>
         <?php else: ?>
-            <span><?= $arrayOfTranslations["WelcomeLabel"] ?><?= htmlspecialchars($_SESSION["Username"]) ?>!</span>
+            <span><?= $arrayOfTranslations["WelcomeLabel"] ?? "Welcome " ?><?= htmlspecialchars($_SESSION["Username"]) ?>!</span>
+            
+            <a href="ShopCartContents.php?lang=<?= $language ?>">
+                <img width="50px" src="Pictures/cart.png" style="vertical-align: middle;">
+            </a>
+
             <?php if ($_SESSION["UserType"] === "Admin") : ?>
                 <a href="Admin.php?lang=<?= $language ?>"
                     <?= ($callingPage === "Admin") ? "class='highlight'" : "" ?>>
@@ -90,15 +95,12 @@ function NavigationBar($callingPage)
             </a>
         <?php endif; ?>
 
-        <!-- Language Selector -->
         <form method="get" style="display:inline-block; margin-left:20px;">
             <select name="lang" onchange="this.form.submit()">
                 <option value="EN" <?= ($language == "EN") ? "selected" : "" ?>>English</option>
                 <option value="PT" <?= ($language == "PT") ? "selected" : "" ?>>Portuguese</option>
             </select>
         </form>
-
-        <a href="ShopCartContents.php?lang=<?= $language ?>"><img width="50px" src="Pictures/cart.png"></a>
     </div>
 <?php
 }
