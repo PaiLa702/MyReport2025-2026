@@ -1,16 +1,13 @@
 <?php
 include_once("CommonCode.php");
 
-
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
     $msg = trim($_POST["newMessage"]);
     if (!empty($msg)) {
-       
         $sqlInsert = $connection->prepare("INSERT INTO Messages (messageText, username) VALUES (?, ?)");
         $sqlInsert->bind_param("ss", $msg, $_SESSION["Username"]);
         $sqlInsert->execute();
         
-    
         header("Location: Forum.php?lang=" . $language);
         exit();
     }
@@ -21,20 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guild Forum | Pixel Potion Shop</title>
+    <title><?= $arrayOfTranslations["ForumTitle"] ?? "Guild Forum" ?> | Pixel Potion Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="Products.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" type="text/css" href="forum.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
     <?php
-    includeCSS("Products.css");
     includeCSS("forum.css");
-    NavigationBar("Forum");
+    NavigationBar($arrayOfTranslations["ForumTitle"] ?? "Forum");
     ?> 
 
-    <h2 class="cart-title">GUILD FORUM</h2>
+    <h2 class="cart-title"><?= strtoupper($arrayOfTranslations["ForumTitle"] ?? "GUILD FORUM") ?></h2>
 
     <div class="cart-wrapper">
         
@@ -54,20 +48,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
                     <?php
                 }
             } else {
-                echo "<p style='text-align:center; font-family:VT323; font-size:1.5rem;'>No scrolls found... be the first to speak!</p>";
+                echo "<p style='text-align:center; font-family:VT323; font-size:1.5rem;'>" . 
+                     ($arrayOfTranslations["ForumNoMessages"] ?? "No scrolls found... be the first to speak!") . 
+                     "</p>";
             }
             ?>
         </div>
+
         <div id="NewMessage">
             <?php if (isset($_SESSION["UserLogged"]) && $_SESSION["UserLogged"] === true): ?>
                 <form method="POST" class="forum-input-container">
                     <input type="text" name="newMessage" class="forum-input" 
-                           placeholder="Share your wisdom..." required autocomplete="off">
-                    <input type="submit" class="forum-submit" value="POST">
+                           placeholder="<?= $arrayOfTranslations["ForumPlaceholder"] ?? "Share your wisdom..." ?>" 
+                           required autocomplete="off">
+                    <input type="submit" class="forum-submit" 
+                           value="<?= $arrayOfTranslations["ForumPostBtn"] ?? "POST" ?>">
                 </form>
             <?php else: ?>
                 <p style="text-align:center; font-family:VT323; color:#ffbcff; font-size:1.4rem;">
-                    Only registered guild members may post. Please Login.
+                    <?= $arrayOfTranslations["ForumLoginRequired"] ?? "Only registered guild members may post. Please Login." ?>
                 </p>
             <?php endif; ?>
         </div>

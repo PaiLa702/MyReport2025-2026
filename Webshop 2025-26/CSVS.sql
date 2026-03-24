@@ -82,6 +82,7 @@ INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
 ('AdminBtn','Admin Panel','Painel de Admin'),
 ('BuyBtn','Buy','Comprar');
 
+
 INSERT INTO Users 
 (Username, DisplayName, Email, UserPassword, UserType)
 VALUES

@@ -1,8 +1,20 @@
 <?php
 include_once("CommonCode.php");
 
+
 if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true) {
     header("Location: Login.php?lang=" . $language);
+    exit();
+}
+
+
+if (isset($_GET['remove'])) {
+    $idToRemove = $_GET['remove'];
+    if (isset($_SESSION["Cart"][$idToRemove])) {
+        unset($_SESSION["Cart"][$idToRemove]);
+    }
+   
+    header("Location: ShopCartContents.php?lang=" . $language);
     exit();
 }
 ?>
@@ -12,7 +24,7 @@ if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true) {
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="Products.css?v=<?php echo time(); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Satchel | Pixel Potion Shop</title>
+    <title><?= $arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel" ?> | Pixel Potion Shop</title>
 </head>
 <body>
 
@@ -27,17 +39,20 @@ if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true) {
     <div class="cart-wrapper">
         <?php if (empty($_SESSION["Cart"])): ?>
             <div class="empty-cart-msg">
-                <p>Your satchel is empty, traveler...</p>
-                <a href="Products.php?lang=<?= $language ?>" class="back-link">Return to Shop</a>
+                <p><?= $arrayOfTranslations["CartEmptyMsg"] ?? "Your satchel is empty, traveler..." ?></p>
+                <a href="Products.php?lang=<?= $language ?>" class="back-link">
+                    <?= $arrayOfTranslations["CartReturnBtn"] ?? "Return to Shop" ?>
+                </a>
             </div>
 
         <?php else: ?>
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th>Potion</th>
-                        <th style="text-align: center;">Qty</th>
-                        <th style="text-align: right;">Price</th>
+                        <th><?= $arrayOfTranslations["CartTablePotion"] ?? "POTION" ?></th>
+                        <th style="text-align: center;"><?= $arrayOfTranslations["CartTableQty"] ?? "QTY" ?></th>
+                        <th style="text-align: right;"><?= $arrayOfTranslations["CartTablePrice"] ?? "PRICE" ?></th>
+                        <th style="text-align: center;"><?= $arrayOfTranslations["CartTableAction"] ?? "ACTION" ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +74,14 @@ if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true) {
                             <td class="potion-name"><?= htmlspecialchars($pName) ?></td>
                             <td style="text-align: center;"><?= $qty ?></td>
                             <td style="text-align: right;" class="gold-text"><?= number_format($subtotal, 2) ?> EUR</td>
+                            
+                            <td style="text-align: center;">
+                                <a href="ShopCartContents.php?lang=<?= $language ?>&remove=<?= $itemId ?>" 
+                                   class="remove-btn" 
+                                   style="color: #ff4b2b; text-decoration: none; font-weight: bold; font-size: 1.2rem;">
+                                   &times;
+                                </a>
+                            </td>
                         </tr>
                     <?php
                         }
@@ -69,15 +92,20 @@ if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true) {
                 
                 <tfoot>
                     <tr class="cart-total-row">
-                        <td colspan="2">GRAND TOTAL</td>
+                        <td colspan="2"><?= $arrayOfTranslations["CartGrandTotal"] ?? "GRAND TOTAL" ?></td>
                         <td style="text-align: right;"><?= number_format($grandTotal, 2) ?> EUR</td>
+                        <td></td> 
                     </tr>
                 </tfoot>
             </table>
 
             <div class="cart-actions">
-                <a href="Products.php?lang=<?= $language ?>" class="continue-btn">Continue Shopping</a>
-                <button class="checkout-btn">Finalize Order</button>
+                <a href="Products.php?lang=<?= $language ?>" class="continue-btn">
+                    <?= $arrayOfTranslations["CartContinueBtn"] ?? "Continue Shopping" ?>
+                </a>
+                <button class="checkout-btn">
+                    <?= $arrayOfTranslations["CartFinalizeBtn"] ?? "Finalize Order" ?>
+                </button>
             </div>
         <?php endif; ?>
     </div>
