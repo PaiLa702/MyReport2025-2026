@@ -69,6 +69,7 @@ function NavigationBar($callingPage)
         </a>
 
         <?php if (!$_SESSION["UserLogged"]) : ?>
+
             <a href="Register.php?lang=<?= $language ?>"
                 <?= ($callingPage === ($arrayOfTranslations["RegisterBtn"] ?? "")) ? "class='highlight'" : "" ?>>
                 <?= $arrayOfTranslations["RegisterBtn"] ?>
@@ -82,6 +83,11 @@ function NavigationBar($callingPage)
             
             <a href="ShopCartContents.php?lang=<?= $language ?>">
                 <img width="50px" src="Pictures/cart.png" style="vertical-align: middle;">
+            </a>
+
+            <a href="Forum.php?lang=<?= "Forum" ?>"
+                <?= ($callingPage === ("Forum" ?? "")) ? "class='highlight'" : "" ?>>
+                <?="Forum" ?>
             </a>
 
             <?php if ($_SESSION["UserType"] === "Admin") : ?>

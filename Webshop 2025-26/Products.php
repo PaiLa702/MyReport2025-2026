@@ -40,7 +40,7 @@
                 <div><?= $price ?>EUR</div>
 
                 <?php if ($_SESSION["UserLogged"]) : ?>
-                    <form method="POST" action="ShopCartContents.php?lang=<?= $language ?>" class="buy-container">
+                   <form method="POST" action="Products.php?lang=<?= $language ?>" class="buy-container">
                         <input type="number" value="1" min="1" name="quantityToBuy" style="background-color: #8e6fff69; color: black; width: 40px;">
                         <input type="hidden" value="<?= $id ?>" name="itemToBuy">
                         <input type="submit" value="BUY" class="buy-button">

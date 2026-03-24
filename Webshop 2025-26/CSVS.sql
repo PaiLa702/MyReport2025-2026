@@ -22,6 +22,13 @@ CREATE TABLE Users (
     UserType VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE Messages (
+  id INT primary key auto_increment,
+  messageText VARCHAR(255),
+  username VARCHAR(100) NOT NULL,
+  FOREIGN KEY (username) REFERENCES Users (username)
+);
+
 CREATE TABLE Translations (
     TranslationKey VARCHAR(100) PRIMARY KEY,
     EnglishText TEXT NOT NULL,
