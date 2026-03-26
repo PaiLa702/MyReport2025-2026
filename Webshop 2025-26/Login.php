@@ -55,7 +55,7 @@
                 $_SESSION["UserType"] = $storedUserType;
                 
                 // Redirect to Home
-                header("Location: Home.php?lang=" . $lang);
+                header("Location: Home.php?lang=" . $language);
                 exit(); 
             }
         }

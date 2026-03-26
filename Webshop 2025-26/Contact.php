@@ -42,7 +42,7 @@
 
 
         <div class="contact-details">
-            <p>🦉 <strong><?= $arrayOfTranslations["ContactAddress"] ?><strong></p>
+            <p>🦉 <strong><?= $arrayOfTranslations["ContactEmailRegistration"] ?><strong></p>
             <p>🔮 <strong><?= $arrayOfTranslations["ContactAddress"] ?><strong></p>
             <p>🏰 <strong><?= $arrayOfTranslations["ContactLocation"] ?><strong></p>
         </div>

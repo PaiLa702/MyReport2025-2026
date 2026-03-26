@@ -2,12 +2,12 @@
 session_start();
 $connection = new mysqli("localhost", "root", "", "webshop2025_26");
 
-// Initialize Cart
+//Initialize Cart
 if (!isset($_SESSION["Cart"])) {
     $_SESSION["Cart"] = [];
 }
 
-// Handle Add to Cart
+//Handle Add to Cart
 if (isset($_POST["itemToBuy"], $_POST["quantityToBuy"])) {
     $item = $_POST["itemToBuy"];
     $qty = (int)$_POST["quantityToBuy"];
@@ -18,20 +18,20 @@ if (isset($_POST["itemToBuy"], $_POST["quantityToBuy"])) {
     }
 }
 
-// Initialize session login state
+//Initialize session login state
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
 }
 
-// Default usertype
+//Default usertype
 if (!isset($_SESSION["UserType"])) {
     $_SESSION["UserType"] = "regular";
 }
 
-// Language Handling - FIXED: Persist language through GET
+//Language Handling
 $language = isset($_GET["lang"]) ? $_GET["lang"] : "EN";
 
-// Load Translations
+//Load Translations
 $arrayOfTranslations = [];
 $sqlQuery = $connection->prepare("SELECT * FROM Translations");
 $sqlQuery->execute();
@@ -42,7 +42,7 @@ while ($row = $result->fetch_assoc()) {
     $arrayOfTranslations[$key] = ($language === "EN") ? $row["EnglishText"] : $row["PortugueseText"];
 }
 
-// Navigation Bar Function
+//Navigation Bar Function
 function NavigationBar($callingPage)
 {
     global $arrayOfTranslations, $language;
@@ -64,9 +64,11 @@ function NavigationBar($callingPage)
             <a href="Register.php?lang=<?= $language ?>" <?= ($callingPage === ($arrayOfTranslations["RegisterBtn"] ?? "Register")) ? "class='highlight'" : "" ?>>
                 <?= $arrayOfTranslations["RegisterBtn"] ?? "Register" ?>
             </a>
+
             <a href="Login.php?lang=<?= $language ?>" <?= ($callingPage === ($arrayOfTranslations["LoginBtn"] ?? "Login")) ? "class='highlight'" : "" ?>>
                 <?= $arrayOfTranslations["LoginBtn"] ?? "Login" ?>
             </a>
+
         <?php else: ?>
             <span class="welcome-text">
                 <?= $arrayOfTranslations["WelcomeLabel"] ?? "Welcome, " ?><?= htmlspecialchars($_SESSION["Username"] ?? "Alchemist") ?>!
@@ -98,11 +100,12 @@ function NavigationBar($callingPage)
                 <option value="PT" <?= ($language == "PT") ? "selected" : "" ?>>Português</option>
             </select>
         </form>
+        
     </div>
 <?php
 }
 
-// Updated: Check database instead of CSV
+//Function to check if username is already registered
 function userAlreadyRegistered($checkedUser)
 {
     global $connection;
@@ -113,7 +116,7 @@ function userAlreadyRegistered($checkedUser)
     return $res->num_rows > 0;
 }
 
-// Function to include CSS
+//Function to include CSS
 function includeCSS($pageCSS = "")
 {
     echo '<link rel="stylesheet" type="text/css" href="global.css?v=' . time() . '">' . PHP_EOL;
@@ -123,6 +126,7 @@ function includeCSS($pageCSS = "")
     echo '<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">' . PHP_EOL;
 }
 
+//Function to count total items in cart
 function getCartCount() {
     $count = 0;
     if (isset($_SESSION["Cart"]) && !empty($_SESSION["Cart"])) {

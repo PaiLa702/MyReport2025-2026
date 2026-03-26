@@ -58,34 +58,33 @@
 
     if ($showForm):
     ?>
-        <section class="register">
-            <h2><?= $arrayOfTranslations["RegisterTitle"] ?></h2>
-            <p><?= $arrayOfTranslations["RegisterText"] ?></p>
+    <section class="register">
+    <h2><?= $arrayOfTranslations["RegisterTitle"] ?? "Register as an Apprentice Brewer" ?></h2>
+    <p><?= $arrayOfTranslations["RegisterText"] ?? "Join the guild!" ?></p>
 
-            <form class="register-form" method="POST">
+    <form class="register-form" method="POST">
 
-                <label for="username"><?= $arrayOfTranslations["RegisterUsername"] ?></label>
-                <input type="text" id="username" name="username"
-                    placeholder="<?= $arrayOfTranslations["RegisterUsernamePlaceholder"] ?>" required>
+        <label for="username"><?= $arrayOfTranslations["RegisterUsername"] ?? "Adventurer Name:" ?></label>
+        <input type="text" id="username" name="username"
+            placeholder="<?= $arrayOfTranslations["RegisterUsernamePlaceholder"] ?? "e.g., Merlin" ?>" required>
 
-                <label for="displayname"><?= $arrayOfTranslations["DisplayName"] ?></label>
-                <input type="text" id="displayname" name="displayname"
-                    placeholder="<?= $arrayOfTranslations["DisplayNamePlaceholder"] ?>" required>
+        <label for="displayname"><?= $arrayOfTranslations["DisplayName"] ?? "Display Name:" ?></label>
+        <input type="text" id="displayname" name="displayname"
+            placeholder="<?= $arrayOfTranslations["DisplayNamePlaceholder"] ?? "Your public name" ?>" required>
 
-                <label for="email"><?= $arrayOfTranslations["RegisterEmail"] ?></label>
-                <input type="email" id="email" name="email"
-                    placeholder="<?= $arrayOfTranslations["RegisterEmailPlaceholder"] ?>" required>
+        <label for="email"><?= $arrayOfTranslations["RegisterEmail"] ?? "Email:" ?></label>
+        <input type="email" id="email" name="email"
+            placeholder="<?= $arrayOfTranslations["RegisterEmailPlaceholder"] ?? "you@example.com" ?>" required>
 
-                <label for="password"><?= $arrayOfTranslations["RegisterSecretPassword"] ?></label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
+        <label for="password"><?= $arrayOfTranslations["RegisterSecretPassword"] ?? "Password:" ?></label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
 
-                <label for="passwordAgain"><?= $arrayOfTranslations["RegisterSecretPasswordRepeat"] ?></label>
-                <input type="password" id="passwordAgain" name="passwordAgain" placeholder="••••••••" required>
+        <label for="passwordAgain"><?= $arrayOfTranslations["RegisterSecretPasswordRepeat"] ?? "Repeat Password:" ?></label>
+        <input type="password" id="passwordAgain" name="passwordAgain" placeholder="••••••••" required>
 
-                <button type="submit"><?= $arrayOfTranslations["RegisterPageButton"] ?></button>
-
-            </form>
-        </section>
+        <button type="submit"><?= $arrayOfTranslations["RegisterPageButton"] ?? "Join the Guild! ✨" ?></button>
+    </form>
+</section>
     <?php endif; ?>
 
 </body>

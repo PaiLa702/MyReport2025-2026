@@ -9,32 +9,46 @@ body {
     text-align: center;
 }
 
-/*Navigation Bar*/
+/* Navigation Bar Styles */
 .navBar {
-    background: rgba(30, 10, 60, 0.85);
-    border-bottom: 2px solid rgba(180, 120, 255, 0.5);
-    box-shadow: 0 0 20px rgba(150, 100, 255, 0.3);
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 40px;
-    height: 70px;
+    align-items: center;
+    gap: 20px;
+    padding: 1rem;
+    background: rgba(26, 15, 46, 0.8); 
+    border-bottom: 2px solid rgba(160, 100, 255, 0.3);
 }
 
 .navBar a {
-    font-family: 'Cinzel Decorative', cursive;
-    color: #f9eaff;
+    color: #d5b4ff;
     text-decoration: none;
-    font-size: 18px;
-    text-transform: uppercase;
-    transition: 0.3s;
-    padding: 6px 12px;
+    font-family: 'Cinzel Decorative', cursive; /* Header font */
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 8px rgba(200, 160, 255, 0.5);
 }
 
-.navBar a:hover {
+.navBar a:hover, .navBar a.highlight {
     color: #fff;
-    text-shadow: 0 0 10px #d8b4ff, 0 0 20px #b98fff;
-    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(200, 160, 255, 1);
+    transform: translateY(-2px);
+}
+
+.navBar span {
+    font-family: 'VT323', monospace; 
+    color: #e7d6ff;
+    font-size: 1.2rem;
+    margin: 0 15px;
+}
+
+.navBar select {
+    background: #1a0f2e;
+    color: #d5b4ff;
+    border: 1px solid #8f6fff;
+    font-family: 'VT323', monospace;
+    padding: 2px 5px;
+    border-radius: 4px;
 }
 
 .highlight {
