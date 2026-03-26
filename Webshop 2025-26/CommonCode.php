@@ -60,6 +60,18 @@ function NavigationBar($callingPage)
             <?= $arrayOfTranslations["ProductBtn"] ?? "Products" ?>
         </a>
 
+        <?php if ($_SESSION["UserLogged"]) : ?>
+            <a href="Forum.php?lang=<?= $language ?>" <?= ($callingPage === ($arrayOfTranslations["ForumTitle"] ?? "Forum")) ? "class='highlight'" : "" ?>>
+                <?= $arrayOfTranslations["ForumBtn"] ?? "Forum" ?>
+            </a>
+
+            <?php if ($_SESSION["UserType"] === "Admin") : ?>
+                <a href="Admin.php?lang=<?= $language ?>" <?= ($callingPage === "Admin") ? "class='highlight'" : "" ?>>
+                    <?= $arrayOfTranslations["AdminBtn"] ?? "Admin Panel" ?>
+                </a>
+            <?php endif; ?>
+        <?php endif; ?>
+
         <?php if (!$_SESSION["UserLogged"]) : ?>
             <a href="Register.php?lang=<?= $language ?>" <?= ($callingPage === ($arrayOfTranslations["RegisterBtn"] ?? "Register")) ? "class='highlight'" : "" ?>>
                 <?= $arrayOfTranslations["RegisterBtn"] ?? "Register" ?>
@@ -78,16 +90,6 @@ function NavigationBar($callingPage)
                 <img width="30px" src="Pictures/cart.png" style="vertical-align: middle;">
                 <span class="cart-badge"><?= getCartCount() ?></span>
             </a>
-
-            <a href="Forum.php?lang=<?= $language ?>" <?= ($callingPage === ($arrayOfTranslations["ForumTitle"] ?? "Forum")) ? "class='highlight'" : "" ?>>
-                <?= $arrayOfTranslations["ForumBtn"] ?? "Forum" ?>
-            </a>
-
-            <?php if ($_SESSION["UserType"] === "Admin") : ?>
-                <a href="Admin.php?lang=<?= $language ?>" <?= ($callingPage === "Admin") ? "class='highlight'" : "" ?>>
-                    <?= $arrayOfTranslations["AdminBtn"] ?? "Admin Panel" ?>
-                </a>
-            <?php endif; ?>
 
             <a href="Logout.php?lang=<?= $language ?>" class="logout-btn">
                 <?= $arrayOfTranslations["LogoutBtn"] ?? "Logout" ?>
