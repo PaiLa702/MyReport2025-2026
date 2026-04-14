@@ -39,6 +39,7 @@ CREATE TABLE Translations (
 
 -- All Translations
 INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
+
 -- Global / Navigation
 ('HomeBtn', 'Home', 'Início'),
 ('ContactBtn', 'Contact', 'Contacto'),
@@ -47,7 +48,24 @@ INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
 ('LoginBtn', 'Login', 'Iniciar Sessão'),
 ('LogoutBtn', 'Logout', 'Sair'),
 ('AdminBtn', 'Admin Panel', 'Painel de Admin'),
+
+-- Welcome Message
 ('WelcomeLabel', 'Welcome, ', 'Bem-vindo, '),
+
+-- Admin Panel
+('AdminTitle', 'Admin Panel - Create Product', 'Painel Admin - Criar Produto'),
+('AdminNameEN', 'Product Name (EN)', 'Nome do Produto (EN)'),
+('AdminNamePT', 'Product Name (PT)', 'Nome do Produto (PT)'),
+('AdminPrice', 'Price (EUR)', 'Preço (EUR)'),
+('AdminDescEN', 'Description (EN)', 'Descrição (EN)'),
+('AdminEffectEN', 'Effect (EN)', 'Efeito (EN)'),
+('AdminDescPT', 'Description (PT)', 'Descrição (PT)'),
+('AdminEffectPT', 'Effect (PT)', 'Efeito (PT)'),
+('AdminImage', 'Product Image (PNG or JPEG, max 5MB)', 'Imagem do Produto (PNG ou JPEG, máx 5MB)'),
+('AdminAddBtn', 'Add Product', 'Adicionar Produto'),
+('AdminSuccess', 'Product successfully added!', 'Produto adicionado com sucesso!'),
+('AdminErrFields', 'Please fill in all required fields.', 'Por favor, preencha todos os campos obrigatórios.'),
+('AdminErrAccess', 'Access denied. Admins only.', 'Acesso negado. Apenas para Admins.'),
 ('AdminPurchaseDisabled', 'Admin View: Purchase Disabled', 'Vista de Admin: Compra Desativada'),
 ('LoginToPurchase', 'Login to Purchase', 'Entre para Comprar'),
 

@@ -2,10 +2,10 @@
 include_once("CommonCode.php");
 includeCSS("Admin.css");
 
-//Check if user is Admin
+// Check if user is Admin
 if (!$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
-    echo "<p style='text-align:center; margin-top:50px; color:red;'>Access denied. Admins only.</p>";
-    echo "<p style='text-align:center;'><a href='Home.php?lang=$language'>Return Home</a></p>";
+    echo "<p style='text-align:center; margin-top:50px; color:red;'>" . ($arrayOfTranslations["AdminErrAccess"] ?? "Access denied. Admins only.") . "</p>";
+    echo "<p style='text-align:center;'><a href='Home.php?lang=$language'>" . ($arrayOfTranslations["CartReturnBtn"] ?? "Return Home") . "</a></p>";
     exit;
 }
 
@@ -23,13 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $descriptionPT = trim($_POST["descriptionPT"]);
     $effectPT = trim($_POST["effectPT"]);
 
-    //File upload
+    // File upload
     if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = ['image/png' => 'png', 'image/jpeg' => 'jpg'];
-        $maxSize = 5 * 1024 * 1024; //5MB
+        $maxSize = 5 * 1024 * 1024; // 5MB
 
         $uploadDir = __DIR__ . '/Pictures';
-
         $fileTmp = $_FILES['imageFile']['tmp_name'];
         $fileType = mime_content_type($fileTmp);
 
@@ -50,14 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    //Save to CSV if all fields are valid
+    // Save to CSV if all fields are valid
     if ($productNameEN && $productNamePT && $price && $imageLink && $message === "") {
         $fileHandler = fopen("Products.csv", "a");
         fwrite($fileHandler, "\n$productNameEN;$imageLink;$price;$descriptionEN;$effectEN;$descriptionPT;$effectPT;$productNamePT");
         fclose($fileHandler);
-        $message = "<div class='success'>Product successfully added!</div>";
+        $message = "<div class='success'>" . ($arrayOfTranslations["AdminSuccess"] ?? "Product successfully added!") . "</div>";
     } elseif ($message === "") {
-        $message = "<div class='error'>Please fill in all required fields.</div>";
+        $message = "<div class='error'>" . ($arrayOfTranslations["AdminErrFields"] ?? "Please fill in all required fields.") . "</div>";
     }
 }
 ?>
@@ -67,41 +66,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel | Pixel Potion Shop</title>
+    <title><?= $arrayOfTranslations["AdminBtn"] ?? "Admin Panel" ?> | Pixel Potion Shop</title>
 </head>
 
 <body>
     <div class="register" style="max-width:600px; margin:50px auto;">
-        <h2>Admin Panel - Create Product</h2>
+        <h2><?= $arrayOfTranslations["AdminTitle"] ?? "Admin Panel - Create Product" ?></h2>
 
         <?= $message ?>
 
         <form method="POST" enctype="multipart/form-data">
-            <label>Product Name (EN)</label>
+            <label><?= $arrayOfTranslations["AdminNameEN"] ?? "Product Name (EN)" ?></label>
             <input type="text" name="productNameEN" required>
 
-            <label>Product Name (PT)</label>
+            <label><?= $arrayOfTranslations["AdminNamePT"] ?? "Product Name (PT)" ?></label>
             <input type="text" name="productNamePT" required>
 
-            <label>Price (EUR)</label>
+            <label><?= $arrayOfTranslations["AdminPrice"] ?? "Price (EUR)" ?></label>
             <input type="number" name="price" step="0.01" required>
 
-            <label>Description (EN)</label>
+            <label><?= $arrayOfTranslations["AdminDescEN"] ?? "Description (EN)" ?></label>
             <input type="text" name="descriptionEN">
 
-            <label>Effect (EN)</label>
+            <label><?= $arrayOfTranslations["AdminEffectEN"] ?? "Effect (EN)" ?></label>
             <input type="text" name="effectEN">
 
-            <label>Description (PT)</label>
+            <label><?= $arrayOfTranslations["AdminDescPT"] ?? "Description (PT)" ?></label>
             <input type="text" name="descriptionPT">
 
-            <label>Effect (PT)</label>
+            <label><?= $arrayOfTranslations["AdminEffectPT"] ?? "Effect (PT)" ?></label>
             <input type="text" name="effectPT">
 
-            <label>Product Image (PNG or JPEG, max 5MB)</label>
+            <label><?= $arrayOfTranslations["AdminImage"] ?? "Product Image (PNG or JPEG, max 5MB)" ?></label>
             <input type="file" name="imageFile" accept="image/png, image/jpeg" required>
 
-            <button type="submit">Add Product</button>
+            <button type="submit"><?= $arrayOfTranslations["AdminAddBtn"] ?? "Add Product" ?></button>
         </form>
     </div>
 </body>
