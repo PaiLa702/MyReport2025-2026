@@ -49,8 +49,6 @@
     </section>
 
     <?php
-    //var_dump($_GET);
-    //var_dump($_POST);
 
     if (isset($_GET["name"])) {
     ?>

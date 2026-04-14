@@ -23,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $descriptionPT = trim($_POST["descriptionPT"]);
     $effectPT = trim($_POST["effectPT"]);
 
-    //File upload handling
+    //File upload
     if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = ['image/png' => 'png', 'image/jpeg' => 'jpg'];
         $maxSize = 5 * 1024 * 1024; //5MB
 
-        $uploadDir = __DIR__ . '/Pictures'; //Use existing folder
+        $uploadDir = __DIR__ . '/Pictures';
 
         $fileTmp = $_FILES['imageFile']['tmp_name'];
         $fileType = mime_content_type($fileTmp);

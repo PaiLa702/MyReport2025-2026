@@ -7,7 +7,7 @@ if (!isset($_SESSION["Cart"])) {
     $_SESSION["Cart"] = [];
 }
 
-//Initialize session login state
+//Initialize session login
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
 }

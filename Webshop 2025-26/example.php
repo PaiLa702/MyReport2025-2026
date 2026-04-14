@@ -11,14 +11,13 @@
         <input type="number" placeholder="minimum calories" name="calories">
         <input type="submit" value="Filter">
     </form>
-   
-    <?php
-    // Create connection
-    $connection = new mysqli("localhost", "root","","firstdb2026ad");
-    //create (prepare) an sql query
-    if (isset($_GET["calories"])){
-        $sqlQuery = $connection->prepare("SELECT * from Ingridients where ingridientCalories>=?;");
-        $sqlQuery->bind_param("i", $_GET["calories"]);
+   <?php
+   //Create connection
+   $connection = new mysqli("localhost", "root","","firstdb2026ad");
+   //create an sql query
+   if (isset($_GET["calories"])){
+       $sqlQuery = $connection->prepare("SELECT * from Ingridients where ingridientCalories>=?;");
+       $sqlQuery->bind_param("i", $_GET["calories"]);
     }
     else{
         $sqlQuery = $connection->prepare("SELECT * FROM Ingridients;");
@@ -38,7 +37,6 @@
     <?php
     //display the result in a loop
     while($row=$result->fetch_assoc()){
-        //row is an associative array that has keys -
     ?>
         <tr>
             <td><?= $row["ingridientName"]?></td>
