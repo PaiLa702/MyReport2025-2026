@@ -2,8 +2,8 @@
 include_once("CommonCode.php");
 
 
-if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true) {
-    header("Location: Login.php?lang=" . $language);
+if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true || $_SESSION["UserType"] === "Admin") {
+    header("Location: Home.php?lang=" . $language);
     exit();
 }
 

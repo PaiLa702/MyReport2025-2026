@@ -48,6 +48,8 @@ INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
 ('LogoutBtn', 'Logout', 'Sair'),
 ('AdminBtn', 'Admin Panel', 'Painel de Admin'),
 ('WelcomeLabel', 'Welcome, ', 'Bem-vindo, '),
+('AdminPurchaseDisabled', 'Admin View: Purchase Disabled', 'Vista de Admin: Compra Desativada'),
+('LoginToPurchase', 'Login to Purchase', 'Entre para Comprar'),
 
 -- Home Page
 ('HomeTitle', 'Welcome to the Pixel Potion Shop!', 'Bem-vindo à Loja de Poções Pixel!'),
@@ -69,9 +71,9 @@ INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
 ('ContactPlaceholder2', 'you@example.com', 'você@exemplo.com'),
 ('ContactPlaceholder3', 'Which potion calls to you?', 'Qual poção o chama?'),
 ('ContactPlaceholder4', 'Type your message...', 'Digite a sua mensagem...'),
-("ContactEmailRegistration", "potionMaster001@magicmail.com", "potionMaster001@magicmail.com"),
-("ContactAddress", "123 Alchemy Lane, Potionville", "123 Rua da Alquimia, Vila das Poções"),
-("ContactLocation", "Potionville, Enchanted Forest", "Vila das Poções, Floresta Encantada"),
+('ContactEmailRegistration', 'potionMaster001@magicmail.com', 'potionMaster001@magicmail.com'),
+('ContactAddress', '123 Alchemy Lane, Potionville', '123 Rua da Alquimia, Vila das Poções'),
+('ContactLocation', 'Potionville, Enchanted Forest', 'Vila das Poções, Floresta Encantada'),
 
 -- Registration Page 
 ('RegisterTitle', 'Register as an Apprentice Brewer', 'Registe-se como Aprendiz de fabricante de poções'),
@@ -82,9 +84,9 @@ INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
 ('RegisterSecretPasswordRepeat', 'Repeat Secret Word:', 'Repita a Palavra Secreta:'),
 ('RegisterPageButton', 'Join the Guild! ✨', 'Junte-se à Guilda! ✨'),
 ('DisplayName', 'Display Name (Public):', 'Nome de Exibição (Público):'),
-("RegisterUsernamePlaceholder", "e.g., Merlin", "ex., Merlin"),
-("RegisterEmailPlaceholder", "you@example.com", "tu@exemplo.com"),
-("DisplayNamePlaceholder", "Your public name in the guild", "O seu nome público na guilda"),
+('RegisterUsernamePlaceholder', 'e.g., Merlin', 'ex., Merlin'),
+('RegisterEmailPlaceholder', 'you@example.com', 'tu@exemplo.com'),
+('DisplayNamePlaceholder', 'Your public name in the guild', 'O seu nome público na guilda'),
 
 -- Login Page
 ('LoginTitle', 'Login to your magic account', 'Inicie sessão na sua conta mágica'),

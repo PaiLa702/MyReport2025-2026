@@ -7,17 +7,6 @@ if (!isset($_SESSION["Cart"])) {
     $_SESSION["Cart"] = [];
 }
 
-//Handle Add to Cart
-if (isset($_POST["itemToBuy"], $_POST["quantityToBuy"])) {
-    $item = $_POST["itemToBuy"];
-    $qty = (int)$_POST["quantityToBuy"];
-    if (isset($_SESSION["Cart"][$item])) {
-        $_SESSION["Cart"][$item] += $qty;
-    } else {
-        $_SESSION["Cart"][$item] = $qty;
-    }
-}
-
 //Initialize session login state
 if (!isset($_SESSION["UserLogged"])) {
     $_SESSION["UserLogged"] = false;
@@ -28,7 +17,20 @@ if (!isset($_SESSION["UserType"])) {
     $_SESSION["UserType"] = "regular";
 }
 
-//Language Handling
+//Add to Cart
+if (isset($_POST["itemToBuy"], $_POST["quantityToBuy"])) {
+    if ($_SESSION["UserType"] !== "Admin") { 
+        $item = $_POST["itemToBuy"];
+        $qty = (int)$_POST["quantityToBuy"];
+        if (isset($_SESSION["Cart"][$item])) {
+            $_SESSION["Cart"][$item] += $qty;
+        } else {
+            $_SESSION["Cart"][$item] = $qty;
+        }
+    }
+}
+
+//Language
 $language = isset($_GET["lang"]) ? $_GET["lang"] : "EN";
 
 //Load Translations
@@ -86,10 +88,12 @@ function NavigationBar($callingPage)
                 <?= $arrayOfTranslations["WelcomeLabel"] ?? "Welcome, " ?><?= htmlspecialchars($_SESSION["Username"] ?? "Alchemist") ?>!
             </span>
             
-            <a href="ShopCartContents.php?lang=<?= $language ?>" class="cart-link">
-                <img width="30px" src="Pictures/cart.png" style="vertical-align: middle;">
-                <span class="cart-badge"><?= getCartCount() ?></span>
-            </a>
+            <?php if ($_SESSION["UserType"] !== "Admin") : ?>
+                <a href="ShopCartContents.php?lang=<?= $language ?>" class="cart-link">
+                    <img width="30px" src="Pictures/cart.png" style="vertical-align: middle;">
+                    <span class="cart-badge"><?= getCartCount() ?></span>
+                </a>
+            <?php endif; ?>
 
             <a href="Logout.php?lang=<?= $language ?>" class="logout-btn">
                 <?= $arrayOfTranslations["LogoutBtn"] ?? "Logout" ?>
