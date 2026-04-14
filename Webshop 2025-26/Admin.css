@@ -1,12 +1,3 @@
-.navBar a,
-.navBar span,
-.navBar select {
-    font-family: 'Cinzel Decorative', cursive;
-    color: #f9eaff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
 
 h2 {
     font-family: 'Cinzel Decorative', cursive;

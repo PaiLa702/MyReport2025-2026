@@ -35,7 +35,7 @@
             echo "<p>❌ Adventurer name already exists in the guild registry.</p></div>";
         } else {
 
-        // Hash password
+        //Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         

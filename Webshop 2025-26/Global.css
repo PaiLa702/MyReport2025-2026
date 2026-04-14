@@ -9,7 +9,7 @@ body {
     text-align: center;
 }
 
-/* Navigation Bar Styles */
+/*Navigation Bar Styles */
 .navBar {
     display: flex;
     justify-content: center;
@@ -23,7 +23,7 @@ body {
 .navBar a {
     color: #d5b4ff;
     text-decoration: none;
-    font-family: 'Cinzel Decorative', cursive; /* Header font */
+    font-family: 'Cinzel Decorative', cursive;
     font-size: 1.1rem;
     transition: all 0.3s ease;
     text-shadow: 0 0 8px rgba(200, 160, 255, 0.5);
