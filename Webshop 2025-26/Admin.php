@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // File upload
     if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = ['image/png' => 'png', 'image/jpeg' => 'jpg'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
+        $maxSize = 5 * 1024 * 1024; //5MB
 
         $uploadDir = __DIR__ . '/Pictures';
         $fileTmp = $_FILES['imageFile']['tmp_name'];

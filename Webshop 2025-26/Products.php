@@ -58,7 +58,7 @@
                 //If logged in but user is Admin disable purchasing
                 elseif ($_SESSION["UserLogged"] && $_SESSION["UserType"] === "Admin") : 
                 ?>
-                <p style="font-size: 0.7rem; color: #ffbcff; margin-bottom: 15px;">
+                <p style="font-size: 1rem; color: #ffbcff; margin-bottom: 15px;">
                      <?= $arrayOfTranslations["AdminPurchaseDisabled"]?>
                 </p>
 
@@ -66,7 +66,7 @@
                 //Otherwise user is not logged in
                 else: 
                 ?>
-                <p style="font-size: 0.7rem; color: #ffbcff; margin-top: 10px;">
+                <p style="font-size: 1rem; color: #ffbcff; margin-top: 10px;">
                     <?= $arrayOfTranslations["LoginToPurchase"] ?? "Login to Purchase" ?>
                 </p>
                 <?php endif; ?>
