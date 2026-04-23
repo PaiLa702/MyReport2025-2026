@@ -1,19 +1,20 @@
 <?php
 include_once("CommonCode.php");
 
-
+//Kick out users who aren't logged in OR are Admins
 if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true || $_SESSION["UserType"] === "Admin") {
     header("Location: Home.php?lang=" . $language);
     exit();
 }
 
-
+//Check if the user clicked the remove button
 if (isset($_GET['remove'])) {
     $idToRemove = $_GET['remove'];
+    //If the item exists in the session cartdelete it
     if (isset($_SESSION["Cart"][$idToRemove])) {
         unset($_SESSION["Cart"][$idToRemove]);
     }
-   
+    
     header("Location: ShopCartContents.php?lang=" . $language);
     exit();
 }
@@ -37,7 +38,11 @@ if (isset($_GET['remove'])) {
     <h2 class="cart-title"><?= $pageTitle ?></h2>
 
     <div class="cart-wrapper">
-        <?php if (empty($_SESSION["Cart"])): ?>
+        
+        <?php 
+        // If the session cart is empty, show a friendly message
+        if (empty($_SESSION["Cart"])): 
+        ?>
             <div class="empty-cart-msg">
                 <p><?= $arrayOfTranslations["CartEmptyMsg"] ?? "Your satchel is empty, traveler..." ?></p>
                 <a href="Products.php?lang=<?= $language ?>" class="back-link">
@@ -45,20 +50,23 @@ if (isset($_GET['remove'])) {
                 </a>
             </div>
 
-        <?php else: ?>
+        <?php 
+        else: 
+        ?>
             <table class="cart-table">
                 <thead>
                     <tr>
                         <th><?= $arrayOfTranslations["CartTablePotion"] ?? "POTION" ?></th>
                         <th style="text-align: center;"><?= $arrayOfTranslations["CartTableQty"] ?? "QTY" ?></th>
                         <th style="text-align: right;"><?= $arrayOfTranslations["CartTablePrice"] ?? "PRICE" ?></th>
-                        <th style="text-align: center;"><?= $arrayOfTranslations["CartTableAction"] ?? "ACTION" ?></th>
+                        <th style="text-align: center;"><?= $arrayOfTranslations["CartTableAction"] ?? "REMOVE" ?></th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <?php
-                    $grandTotal = 0;
+                    $grandTotal = 0; 
+                    
                     foreach ($_SESSION["Cart"] as $itemId => $qty) {
                         $stmt = $connection->prepare("SELECT * FROM products WHERE ProductID = ?");
                         $stmt->bind_param("i", $itemId);

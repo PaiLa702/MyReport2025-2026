@@ -123,7 +123,7 @@ INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
 ('CartTablePotion', 'POTION', 'POÇÃO'),
 ('CartTableQty', 'QTY', 'QTD'),
 ('CartTablePrice', 'PRICE', 'PREÇO'),
-('CartTableAction', 'ACTION', 'AÇÃO'),
+('CartTableAction', 'REMOVE', 'REMOVER'),
 ('CartGrandTotal', 'GRAND TOTAL', 'TOTAL GERAL'),
 ('CartContinueBtn', 'Continue Shopping', 'Continuar a Comprar'),
 ('CartFinalizeBtn', 'Finalize Order', 'Finalizar Encomenda'),
