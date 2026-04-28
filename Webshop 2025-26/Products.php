@@ -1,81 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="Products.css?v=<?php echo time(); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potions | Pixel Potion Shop</title>
-</head>
-<body>
+<?php
+include_once("CommonCode.php");
+includeCSS("Products.css");
 
-    <?php
-    include_once("CommonCode.php");
-    includeCSS("Products.css");
-    NavigationBar($arrayOfTranslations["ProductBtn"]);
-    
-    $connection = new mysqli("localhost", "root", "", "Webshop2025_26");
+NavigationBar("Products");
 
-    if ($connection->connect_error) {
-        die("Connection failed: " . $connection->connect_error);
-    }
-    ?>
+$sql = "SELECT * FROM products";
+$result = $connection->query($sql);
 
-    <h2><?= $arrayOfTranslations["ProductTitle"] ?></h2>
+echo "<div class='product-container'>";
 
-    <div class="ProductItems">
-        <?php
-        $sqlQuery = $connection->prepare("SELECT * FROM Products;");
-        $sqlQuery->execute();
-        $result = $sqlQuery->get_result();
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $image = $row['ImageLink'];
+        $rarity = $row['Rarity'] ?? 'Common';
+        $rarityClass = strtolower($rarity);
 
-        while ($row = $result->fetch_assoc()) {
-            $name = ($language == "EN") ? $row["ProductNameEN"] : $row["ProductNamePT"];
-            $desc = ($language == "EN") ? $row["DescriptionEN"] : $row["DescriptionPT"];
-            $effect = ($language == "EN") ? $row["EffectEN"] : $row["EffectPT"];
-            $price = $row["Price"];
-            $image = $row["ImageLink"];
-            $id = $row["ProductID"]; 
-        ?>
-            <div class="OneProduct">
-                <div><?= $name ?></div>
-                <img src="Pictures/<?= $image ?>">
-                <div><?= $desc ?></div>
-                <div><?= $effect ?></div>
-                <div><?= $price ?>EUR</div>
+        $name = ($language === "EN") ? $row['ProductNameEN'] : $row['ProductNamePT'];
+        $desc = ($language === "EN") ? $row['DescriptionEN'] : $row['DescriptionPT'];
+        $effect = ($language === "EN") ? $row['EffectEN'] : $row['EffectPT'];
+?>
 
-                <?php 
-                //Only show the BUY button if the user is logged in AND is a regular customer
-                if ($_SESSION["UserLogged"] && $_SESSION["UserType"] === "regular") : 
-                ?>
-                   <form method="POST" action="Products.php?lang=<?= $language ?>" class="buy-container">
-                        <input type="number" value="1" min="1" name="quantityToBuy" style="background-color: #8e6fff69; color: black; width: 40px;">
-                        <input type="hidden" value="<?= $id ?>" name="itemToBuy">
-                        <input type="submit" value="BUY" class="buy-button">
-                    </form>
+        <div class="product-card rarity-<?= $rarityClass ?>">
+            <div class="rarity-badge"><?= strtoupper($rarity) ?></div>
 
-                <?php 
-
-                //If logged in but user is Admin disable purchasing
-                elseif ($_SESSION["UserLogged"] && $_SESSION["UserType"] === "Admin") : 
-                ?>
-                <p style="font-size: 1rem; color: #ffbcff; margin-bottom: 15px;">
-                     <?= $arrayOfTranslations["AdminPurchaseDisabled"]?>
-                </p>
-
-                <?php 
-                //Otherwise user is not logged in
-                else: 
-                ?>
-                <p style="font-size: 1rem; color: #ffbcff; margin-top: 10px;">
-                    <?= $arrayOfTranslations["LoginToPurchase"] ?? "Login to Purchase" ?>
-                </p>
-                <?php endif; ?>
+            <div class="image-section">
+                <img src="Pictures/<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($name) ?>">
             </div>
-            
-        <?php
-        }
-        $connection->close();
-        ?>
-    </div>
-</body>
-</html>
+
+            <div class="info-section">
+                <h3><?= htmlspecialchars($name) ?></h3>
+                <p class="price"><?= number_format($row['Price'], 2) ?> EUR</p>
+                <p class="description"><?= htmlspecialchars($desc) ?></p>
+
+                <div class="effect-box">
+                    <span class="effect-label">EFFECT:</span> <?= htmlspecialchars($effect) ?>
+                </div>
+            </div>
+
+            <?php if (isset($_SESSION["UserType"]) && $_SESSION["UserType"] !== "Admin") : ?>
+                <form method="POST" action="ShopCartContents.php" class="buy-form">
+                    <input type="hidden" name="product_id" value="<?= $row['ProductID'] ?>">
+                    <button type="submit" class="buy-btn">ADD TO CART</button>
+                </form>
+            <?php else : ?>
+                <div class="admin-lock">
+                    <p>VIEWING AS ADMIN</p>
+                    <span>PURCHASE DISABLED</span>
+                </div>
+            <?php endif; ?>
+        </div>
+
+<?php
+    }
+} else {
+    echo "<p class='empty-msg'>The shop is currently empty. Check back after the next ritual.</p>";
+}
+
+echo "</div>";
+?>

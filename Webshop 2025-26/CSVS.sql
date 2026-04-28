@@ -142,18 +142,10 @@ INSERT INTO Users (Username, DisplayName, Email, UserPassword, UserType) VALUES
 ('larissa','issa','issa@gmail.com','$2y$10$iENtggjXpIB7wy/4OHsqueb.zQJlaO26nq7oWdJOy0w8ZbGJMhAlm','Admin');
 
 -- Products
-INSERT INTO Products 
-(ProductNameEN, ImageLink, Price, DescriptionEN, EffectEN, DescriptionPT, EffectPT, ProductNamePT)
+INSERT INTO products 
+(ProductNameEN, Imagelink, Price, DescriptionEN, EffectEN, DescriptionPT, EffectPT, ProductNamePT, Rarity)
 VALUES
-('Potion of Monday Motivation','Potion_Motivation.png',14.00,'Bright orange energy potion. Smells like coffee and broken dreams.','Temporarily removes urge to go back to bed.','Poção energética laranja brilhante. Cheira a café e sonhos partidos.','Remove temporariamente a vontade de voltar para a cama.','Poção de Motivação de Segunda-feira'),
-('Late Homework Forgiveness Potion','Potion_Forgiveness.png',16.00,'Purple potion that comes with a fake excuse scroll tied to the bottle.','Won''t actually help, but might make your teacher laugh.','Poção roxa com um pergaminho de desculpa falsa.','Não vai realmente ajudar, mas pode fazer o seu professor rir.','Poção de Perdão de Tarefas Atrasadas'),
-('Anger Management Vial','Anger_Vial.png',22.00,'A shimmering red potion that clears distractions and boosts concentration.','Lets you study for hours without checking your phone (well… almost).','Uma poção vermelha cintilante que elimina distrações e aumenta a concentração.','Permite estudar por horas sem verificar o celular (bem... quase).','Frasco de Gestão de Raiva'),
-('Potion of Infinite Focus','Potion_Focus.png',12.00,'Bright blue energy potion. Smells like coffee and broken dreams.','Temporarily removes urge to go back to bed.','Poção azul brilhante que cheira a café e sonhos partidos.','Remove temporariamente a vontade de voltar para a cama.','Poção de Foco Infinito'),
-('Confidence Elixir','Confidence_Elixir.png',18.00,'A bright golden liquid that radiates warmth.','Temporarily boosts self-esteem — perfect before presentations or first dates.','Um líquido dourado brilhante que irradia calor.','Aumenta temporariamente a autoestima — perfeito antes de apresentações ou primeiros encontros.','Elixir de Confiança'),
-('Potion of Eternal Procrastination','Potion_Procrastination.png',29.00,'A swirling teal and purple mixture that looks lazy just sitting there.','Makes you feel productive while achieving absolutely nothing.','Uma mistura turquesa e roxa que parece preguiçosa só de estar ali.','Faz você se sentir produtivo sem realizar absolutamente nada.','Poção da Procrastinação Eterna'),
-('Pibble','pibble_400.png',0.10,'Cute little pibble','Cures depression','Pequeno fofinho pibble','Cura depressao','Pibble'),
-('Tung Tung Sahur','Tung-Tung-Tung-Sahur-PNG-Photo-HQ.png',0.20,'A stick who will beat you with another stick','Will knock you out cold for an amazing night sleep. Perfect for people with insomnia.','Um pau que vai bater em ti com outro pau','Vai deixar-te completamente adormecido para uma noite de sono incrível. Perfeito para pessoas com insónia.','Tung Tung Sahur'),
-('Invisible Rock','empty-transparent.png',0.30,'A completely invisible rock. You definitely have it. Trust us.','Prevents burglars because they cannot steal what they cannot see.','Uma pedra completamente invisível. Ela está aí. Confia.','Previne assaltos porque eles não podem roubar o que não conseguem ver.','Pedra Invisível');
+('Eternal Phoenix Feather','phoenix_feather.png',75.00,'A shimmering, radiant feather that never stops smoldering.','Miracle Resurrection: Automatically revives the player with 25% Health.','Uma pena radiante e cintilante que nunca para de arder.','Ressurreição Milagrosa: Revive automaticamente o jogador com 25% de Vida.','Pena de Fênix Eterna','Epic');
 
 select * from Products;
 select * from Users;

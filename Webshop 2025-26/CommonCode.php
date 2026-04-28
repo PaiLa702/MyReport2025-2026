@@ -19,7 +19,7 @@ if (!isset($_SESSION["UserType"])) {
 
 //Add to Cart
 if (isset($_POST["itemToBuy"], $_POST["quantityToBuy"])) {
-    if ($_SESSION["UserType"] !== "Admin") { 
+    if ($_SESSION["UserType"] !== "Admin") {
         $item = $_POST["itemToBuy"];
         $qty = (int)$_POST["quantityToBuy"];
         if (isset($_SESSION["Cart"][$item])) {
@@ -87,7 +87,7 @@ function NavigationBar($callingPage)
             <span class="welcome-text">
                 <?= $arrayOfTranslations["WelcomeLabel"] ?? "Welcome, " ?><?= htmlspecialchars($_SESSION["Username"] ?? "Alchemist") ?>!
             </span>
-            
+
             <?php if ($_SESSION["UserType"] !== "Admin") : ?>
                 <a href="ShopCartContents.php?lang=<?= $language ?>" class="cart-link">
                     <img width="30px" src="Pictures/cart.png" style="vertical-align: middle;">
@@ -106,7 +106,7 @@ function NavigationBar($callingPage)
                 <option value="PT" <?= ($language == "PT") ? "selected" : "" ?>>Português</option>
             </select>
         </form>
-        
+
     </div>
 <?php
 }
@@ -133,7 +133,8 @@ function includeCSS($pageCSS = "")
 }
 
 //Function to count total items in cart
-function getCartCount() {
+function getCartCount()
+{
     $count = 0;
     if (isset($_SESSION["Cart"]) && !empty($_SESSION["Cart"])) {
         foreach ($_SESSION["Cart"] as $qty) {

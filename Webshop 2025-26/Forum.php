@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
         $sqlInsert = $connection->prepare("INSERT INTO Messages (messageText, username) VALUES (?, ?)");
         $sqlInsert->bind_param("ss", $msg, $_SESSION["Username"]);
         $sqlInsert->execute();
-        
+
         header("Location: Forum.php?lang=" . $language);
         exit();
     }
@@ -15,23 +15,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $arrayOfTranslations["ForumTitle"] ?? "Guild Forum" ?> | Pixel Potion Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <?php
-    includeCSS("forum.css");
+    includeCSS("Forum.css");
     NavigationBar($arrayOfTranslations["ForumTitle"] ?? "Forum");
-    ?> 
+    ?>
 
     <h2 class="cart-title"><?= strtoupper($arrayOfTranslations["ForumTitle"] ?? "GUILD FORUM") ?></h2>
 
     <div class="cart-wrapper">
-        
+
         <div id="AllPreviousMessages">
             <?php
             $sqlSelect = $connection->prepare("SELECT * FROM Messages");
@@ -40,17 +42,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    ?>
+            ?>
                     <div class="forum-message">
                         <span class="message-user"><?= htmlspecialchars($row["username"]) ?>:</span>
                         <span class="message-text"><?= htmlspecialchars($row["messageText"]) ?></span>
                     </div>
-                    <?php
+            <?php
                 }
             } else {
-                echo "<p style='text-align:center; font-family:VT323; font-size:1.5rem;'>" . 
-                     ($arrayOfTranslations["ForumNoMessages"] ?? "No scrolls found... be the first to speak!") . 
-                     "</p>";
+                echo "<p style='text-align:center; font-family:VT323; font-size:1.5rem;'>" .
+                    ($arrayOfTranslations["ForumNoMessages"] ?? "No scrolls found... be the first to speak!") .
+                    "</p>";
             }
             ?>
         </div>
@@ -58,11 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
         <div id="NewMessage">
             <?php if (isset($_SESSION["UserLogged"]) && $_SESSION["UserLogged"] === true): ?>
                 <form method="POST" class="forum-input-container">
-                    <input type="text" name="newMessage" class="forum-input" 
-                           placeholder="<?= $arrayOfTranslations["ForumPlaceholder"] ?? "Share your wisdom..." ?>" 
-                           required autocomplete="off">
-                    <input type="submit" class="forum-submit" 
-                           value="<?= $arrayOfTranslations["ForumPostBtn"] ?? "POST" ?>">
+                    <input type="text" name="newMessage" class="forum-input"
+                        placeholder="<?= $arrayOfTranslations["ForumPlaceholder"] ?? "Share your wisdom..." ?>"
+                        required autocomplete="off">
+                    <input type="submit" class="forum-submit"
+                        value="<?= $arrayOfTranslations["ForumPostBtn"] ?? "POST" ?>">
                 </form>
             <?php else: ?>
                 <p style="text-align:center; font-family:VT323; color:#ffbcff; font-size:1.4rem;">
@@ -73,4 +75,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newMessage"])) {
     </div>
 
 </body>
+
 </html>

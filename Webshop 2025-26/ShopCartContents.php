@@ -1,20 +1,37 @@
 <?php
 include_once("CommonCode.php");
 
-//Kick out users who aren't logged in OR are Admins
+//ADD TO CART
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['product_id'])) {
+    // Initialize the cart if it's empty
+    if (!isset($_SESSION["Cart"])) {
+        $_SESSION["Cart"] = [];
+    }
+
+    $idToAdd = $_POST['product_id'];
+
+    //If item exists, increase quantity
+    if (isset($_SESSION["Cart"][$idToAdd])) {
+        $_SESSION["Cart"][$idToAdd]++;
+    } else {
+        $_SESSION["Cart"][$idToAdd] = 1;
+    }
+
+    header("Location: ShopCartContents.php?lang=" . $language);
+    exit();
+}
+
 if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true || $_SESSION["UserType"] === "Admin") {
     header("Location: Home.php?lang=" . $language);
     exit();
 }
 
-//Check if the user clicked the remove button
+//REMOVE
 if (isset($_GET['remove'])) {
     $idToRemove = $_GET['remove'];
-    //If the item exists in the session cartdelete it
     if (isset($_SESSION["Cart"][$idToRemove])) {
         unset($_SESSION["Cart"][$idToRemove]);
     }
-    
     header("Location: ShopCartContents.php?lang=" . $language);
     exit();
 }
@@ -39,20 +56,14 @@ if (isset($_GET['remove'])) {
 
     <div class="cart-wrapper">
         
-        <?php 
-        // If the session cart is empty, show a friendly message
-        if (empty($_SESSION["Cart"])): 
-        ?>
+        <?php if (empty($_SESSION["Cart"])): ?>
             <div class="empty-cart-msg">
                 <p><?= $arrayOfTranslations["CartEmptyMsg"] ?? "Your satchel is empty, traveler..." ?></p>
                 <a href="Products.php?lang=<?= $language ?>" class="back-link">
                     <?= $arrayOfTranslations["CartReturnBtn"] ?? "Return to Shop" ?>
                 </a>
             </div>
-
-        <?php 
-        else: 
-        ?>
+        <?php else: ?>
             <table class="cart-table">
                 <thead>
                     <tr>
@@ -63,10 +74,8 @@ if (isset($_GET['remove'])) {
                     </tr>
                 </thead>
                 <tbody>
-
                     <?php
                     $grandTotal = 0; 
-                    
                     foreach ($_SESSION["Cart"] as $itemId => $qty) {
                         $stmt = $connection->prepare("SELECT * FROM products WHERE ProductID = ?");
                         $stmt->bind_param("i", $itemId);
@@ -82,22 +91,15 @@ if (isset($_GET['remove'])) {
                             <td class="potion-name"><?= htmlspecialchars($pName) ?></td>
                             <td style="text-align: center;"><?= $qty ?></td>
                             <td style="text-align: right;" class="gold-text"><?= number_format($subtotal, 2) ?> EUR</td>
-                            
                             <td style="text-align: center;">
-                                <a href="ShopCartContents.php?lang=<?= $language ?>&remove=<?= $itemId ?>" 
-                                   class="remove-btn" 
-                                   style="color: #ff4b2b; text-decoration: none; font-weight: bold; font-size: 1.2rem;">
-                                   &times;
-                                </a>
+                                <a href="ShopCartContents.php?lang=<?= $language ?>&remove=<?= $itemId ?>" class="remove-btn" style="color: #ff4b2b; text-decoration: none; font-weight: bold; font-size: 1.2rem;">&times;</a>
                             </td>
                         </tr>
                     <?php
                         }
                     }
                     ?>
-
                 </tbody>
-                
                 <tfoot>
                     <tr class="cart-total-row">
                         <td colspan="2"><?= $arrayOfTranslations["CartGrandTotal"] ?? "GRAND TOTAL" ?></td>
@@ -117,6 +119,5 @@ if (isset($_GET['remove'])) {
             </div>
         <?php endif; ?>
     </div>
-
 </body>
 </html>

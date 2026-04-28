@@ -90,3 +90,31 @@ h2 {
     border: 1px solid rgba(255, 100, 100, 0.4);
     text-shadow: 0 0 8px rgba(255, 100, 100, 0.6);
 }
+
+.rarity-selector {
+    width: 100%;
+    padding: 10px;
+    background: rgba(26, 15, 46, 0.8);
+    border: 2px solid rgba(160, 100, 255, 0.4);
+    border-radius: 8px;
+    color: white;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.rarity-selector:focus {
+    border-color: #a678ff;
+    box-shadow: 0 0 10px rgba(166, 120, 255, 0.5);
+}
+
+.rarity-selector option {
+    background: #1a0f2e; 
+    padding: 10px;
+}
+
+.opt-common    { color: #bdc3c7; }
+.opt-rare      { color: #3498db; font-weight: bold; }
+.opt-epic      { color: #9b59b6; font-weight: bold; }
+.opt-legendary { color: #f1c40f; font-weight: bold; text-shadow: 0 0 5px rgba(241, 196, 15, 0.5); }
