@@ -2,6 +2,7 @@
 include_once("CommonCode.php");
 includeCSS("Admin.css");
 
+
 // Check if user is Admin
 if (!$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
     echo "<p style='text-align:center; margin-top:50px; color:red;'>" . ($arrayOfTranslations["AdminErrAccess"] ?? "Access denied. Admins only.") . "</p>";
@@ -9,7 +10,7 @@ if (!$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
     exit;
 }
 
-NavigationBar($arrayOfTranslations["AdminBtn"] ?? "Admin Panel");
+NavigationBar("Admin");
 
 $message = "";
 $imageLink = "";
