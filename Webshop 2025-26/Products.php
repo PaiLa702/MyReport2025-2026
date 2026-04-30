@@ -40,7 +40,14 @@ if ($result && $result->num_rows > 0) {
             <?php if (isset($_SESSION["UserType"]) && $_SESSION["UserType"] !== "Admin") : ?>
                 <form method="POST" action="ShopCartContents.php" class="buy-form">
                     <input type="hidden" name="product_id" value="<?= $row['ProductID'] ?>">
-                    <button type="submit" class="buy-btn">ADD TO CART</button>
+
+                    <div class="qty-wrapper" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span style="font-family: 'VT323', monospace; color: #fff; font-size: 1.2rem;">QTY:</span>
+                        <input type="number" name="quantity" value="1" min="1" max="99"
+                            style="width: 60px; background: rgba(160, 100, 255, 0.2); border: 2px solid #a064ff; border-radius: 8px; color: #fff; text-align: center; font-family: 'VT323', monospace; font-size: 1.2rem; padding: 5px;">
+                    </div>
+
+                    <button type="submit" class="buy-btn"><?= ($language === "EN") ? "ADD TO CART" : "ADICIONAR AO CARRINHO" ?></button>
                 </form>
             <?php else : ?>
                 <div class="admin-lock">
@@ -53,7 +60,7 @@ if ($result && $result->num_rows > 0) {
 <?php
     }
 } else {
-    echo "<p class='empty-msg'>The shop is currently empty. Check back after the next ritual.</p>";
+    echo "<p class='empty-msg'>The shop is currently empty.</p>";
 }
 
 echo "</div>";

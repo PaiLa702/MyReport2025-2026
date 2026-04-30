@@ -1,17 +1,16 @@
-/* Container Layout */
+
 .product-container {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
     padding: 50px 20px;
-    font-family: 'VT323', monospace; /* Classic Pixel Font */
+    font-family: 'VT323', monospace; 
 }
 
-/* Base Product Card */
 .product-card {
-    background: rgba(26, 15, 46, 0.85); /* Deep dark purple/blue */
-    backdrop-filter: blur(8px); /* Blurs background for high-end look */
+    background: rgba(26, 15, 46, 0.85); 
+    backdrop-filter: blur(8px); 
     border: 2px solid rgba(160, 100, 255, 0.3);
     border-radius: 20px;
     padding: 25px;
@@ -29,23 +28,25 @@
     box-shadow: 0 15px 45px rgba(140, 90, 255, 0.4);
 }
 
-/* Image Handling */
+
 .image-section {
-    height: 180px;
+    height: 150px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    padding: 10px;
 }
 
 .image-section img {
-    max-width: 160px;
-    max-height: 160px;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    image-rendering: -moz-crisp-edges; 
+    image-rendering: pixelated; 
+    transform: scale(1.2); 
 }
 
-/* Text Elements */
 h3 {
     color: #fff;
     font-size: 1.8rem;
@@ -70,7 +71,6 @@ h3 {
     margin-bottom: 15px;
 }
 
-/* Effect Box */
 .effect-box {
     background: rgba(0, 255, 170, 0.05);
     border: 1px solid rgba(0, 255, 170, 0.2);
@@ -86,7 +86,6 @@ h3 {
     color: #00ffa2;
 }
 
-/* Rarity System */
 .rarity-badge {
     position: absolute;
     top: -12px;
@@ -105,7 +104,6 @@ h3 {
 .rarity-epic .rarity-badge   { background: #8e24aa; }
 .rarity-legendary .rarity-badge { background: #ffc107; color: #000; }
 
-/* Legendary Specific Effects */
 .rarity-legendary {
     border: 2px solid #ffc107 !important;
     animation: goldPulse 2s infinite alternate;
@@ -116,7 +114,7 @@ h3 {
     to { box-shadow: 0 0 30px rgba(255, 193, 7, 0.5); }
 }
 
-/* Buy Button */
+
 .buy-btn {
     width: 100%;
     background: #4caf50;
@@ -135,7 +133,6 @@ h3 {
     transform: scale(1.02);
 }
 
-/* Admin Message Styling */
 .admin-lock {
     border: 1px dashed rgba(255, 255, 255, 0.3);
     padding: 10px;

@@ -1,20 +1,20 @@
 <?php
 include_once("CommonCode.php");
 
-//ADD TO CART
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['product_id'])) {
-    // Initialize the cart if it's empty
     if (!isset($_SESSION["Cart"])) {
         $_SESSION["Cart"] = [];
     }
 
-    $idToAdd = $_POST['product_id'];
+    $id = $_POST['product_id'];
+    $qty = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
-    //If item exists, increase quantity
-    if (isset($_SESSION["Cart"][$idToAdd])) {
-        $_SESSION["Cart"][$idToAdd]++;
-    } else {
-        $_SESSION["Cart"][$idToAdd] = 1;
+    if ($qty > 0) {
+        if (isset($_SESSION["Cart"][$id])) {
+            $_SESSION["Cart"][$id] += $qty;
+        } else {
+            $_SESSION["Cart"][$id] = $qty;
+        }
     }
 
     header("Location: ShopCartContents.php?lang=" . $language);
@@ -26,7 +26,6 @@ if (!isset($_SESSION["UserLogged"]) || $_SESSION["UserLogged"] !== true || $_SES
     exit();
 }
 
-//REMOVE
 if (isset($_GET['remove'])) {
     $idToRemove = $_GET['remove'];
     if (isset($_SESSION["Cart"][$idToRemove])) {
@@ -38,63 +37,60 @@ if (isset($_GET['remove'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="Products.css?v=<?php echo time(); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel" ?> | Pixel Potion Shop</title>
+    <title><?= $arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel" ?></title>
 </head>
+
 <body>
 
     <?php
     includeCSS("ShopCart.css");
-    $pageTitle = $arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel";
-    NavigationBar($pageTitle);
+    NavigationBar($arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel");
     ?>
 
-    <h2 class="cart-title"><?= $pageTitle ?></h2>
+    <h2 class="cart-title" style="text-align:center; color:#ffcc00; font-family:'Press Start 2P'; margin-top:30px;"><?= $arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel" ?></h2>
 
     <div class="cart-wrapper">
-        
         <?php if (empty($_SESSION["Cart"])): ?>
-            <div class="empty-cart-msg">
+            <div class="empty-cart-msg" style="text-align:center; padding:50px;">
                 <p><?= $arrayOfTranslations["CartEmptyMsg"] ?? "Your satchel is empty, traveler..." ?></p>
-                <a href="Products.php?lang=<?= $language ?>" class="back-link">
-                    <?= $arrayOfTranslations["CartReturnBtn"] ?? "Return to Shop" ?>
-                </a>
+                <a href="Products.php?lang=<?= $language ?>" class="back-link"><?= $arrayOfTranslations["CartReturnBtn"] ?? "Return to Shop" ?></a>
             </div>
         <?php else: ?>
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th><?= $arrayOfTranslations["CartTablePotion"] ?? "POTION" ?></th>
-                        <th style="text-align: center;"><?= $arrayOfTranslations["CartTableQty"] ?? "QTY" ?></th>
-                        <th style="text-align: right;"><?= $arrayOfTranslations["CartTablePrice"] ?? "PRICE" ?></th>
-                        <th style="text-align: center;"><?= $arrayOfTranslations["CartTableAction"] ?? "REMOVE" ?></th>
+                        <th>POTION</th>
+                        <th style="text-align: center;">QTY</th>
+                        <th style="text-align: right;">PRICE</th>
+                        <th style="text-align: center;">REMOVE</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $grandTotal = 0; 
-                    foreach ($_SESSION["Cart"] as $itemId => $qty) {
+                    $grandTotal = 0;
+                    foreach ($_SESSION["Cart"] as $itemId => $itemQty) {
                         $stmt = $connection->prepare("SELECT * FROM products WHERE ProductID = ?");
                         $stmt->bind_param("i", $itemId);
                         $stmt->execute();
                         $res = $stmt->get_result();
-                        
+
                         if ($row = $res->fetch_assoc()) {
                             $pName = ($language == "EN") ? $row["ProductNameEN"] : $row["ProductNamePT"];
-                            $subtotal = $row['Price'] * $qty;
+                            $subtotal = $row['Price'] * $itemQty;
                             $grandTotal += $subtotal;
                     ?>
-                        <tr>
-                            <td class="potion-name"><?= htmlspecialchars($pName) ?></td>
-                            <td style="text-align: center;"><?= $qty ?></td>
-                            <td style="text-align: right;" class="gold-text"><?= number_format($subtotal, 2) ?> EUR</td>
-                            <td style="text-align: center;">
-                                <a href="ShopCartContents.php?lang=<?= $language ?>&remove=<?= $itemId ?>" class="remove-btn" style="color: #ff4b2b; text-decoration: none; font-weight: bold; font-size: 1.2rem;">&times;</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="potion-name"><?= htmlspecialchars($pName) ?></td>
+                                <td style="text-align: center;"><?= $itemQty ?></td>
+                                <td style="text-align: right;" class="gold-text"><?= number_format($subtotal, 2) ?> EUR</td>
+                                <td style="text-align: center;">
+                                    <a href="ShopCartContents.php?lang=<?= $language ?>&remove=<?= $itemId ?>" class="remove-btn">&times;</a>
+                                </td>
+                            </tr>
                     <?php
                         }
                     }
@@ -102,20 +98,16 @@ if (isset($_GET['remove'])) {
                 </tbody>
                 <tfoot>
                     <tr class="cart-total-row">
-                        <td colspan="2"><?= $arrayOfTranslations["CartGrandTotal"] ?? "GRAND TOTAL" ?></td>
+                        <td colspan="2">GRAND TOTAL</td>
                         <td style="text-align: right;"><?= number_format($grandTotal, 2) ?> EUR</td>
-                        <td></td> 
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
 
-            <div class="cart-actions">
-                <a href="Products.php?lang=<?= $language ?>" class="continue-btn">
-                    <?= $arrayOfTranslations["CartContinueBtn"] ?? "Continue Shopping" ?>
-                </a>
-                <button class="checkout-btn">
-                    <?= $arrayOfTranslations["CartFinalizeBtn"] ?? "Finalize Order" ?>
-                </button>
+            <div class="cart-actions" style="margin-top:20px; display:flex; justify-content:space-between;">
+                <a href="Products.php?lang=<?= $language ?>" class="continue-btn">Continue Shopping</a>
+                <button class="checkout-btn">Finalize Order</button>
             </div>
         <?php endif; ?>
     </div>
