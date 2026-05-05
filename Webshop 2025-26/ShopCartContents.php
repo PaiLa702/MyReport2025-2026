@@ -51,7 +51,12 @@ if (isset($_GET['remove'])) {
     NavigationBar($arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel");
     ?>
 
-    <h2 class="cart-title" style="text-align:center; color:#ffcc00; font-family:'Press Start 2P'; margin-top:30px;"><?= $arrayOfTranslations["ShopCartTitle"] ?? "Your Alchemy Satchel" ?></h2>
+    <div style="text-align: center; margin: 40px 0;">
+        <div class="header-banner">
+            <h2 class="shop-title"><?= ($language === "EN") ? "Your Alchemy Satchel" : "SEU SACO DE ALCIMIA" ?></h2>
+            <div class="title-underline"></div>
+        </div>
+    </div>
 
     <div class="cart-wrapper">
         <?php if (empty($_SESSION["Cart"])): ?>
@@ -112,4 +117,5 @@ if (isset($_GET['remove'])) {
         <?php endif; ?>
     </div>
 </body>
+
 </html>

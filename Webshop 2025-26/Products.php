@@ -3,7 +3,16 @@ include_once("CommonCode.php");
 includeCSS("Products.css");
 
 NavigationBar("Products");
+?>
 
+<div style="text-align: center; margin: 40px 0;">
+    <div class="header-banner">
+        <h2 class="shop-title"><?= ($language === "EN") ? "MAGICAL PRODUCTS" : "PRODUTOS MÁGICOS" ?></h2>
+        <div class="title-underline"></div> 
+    </div>
+</div>
+
+<?php
 $sql = "SELECT * FROM products";
 $result = $connection->query($sql);
 
