@@ -1,13 +1,13 @@
 -- Database
-CREATE OR REPLACE DATABASE Webshop2025_26;
+-- CREATE OR REPLACE DATABASE Webshop2025_26;
 USE Webshop2025_26;
 
--- Table Structure
 CREATE TABLE Products (
     ProductID INT AUTO_INCREMENT PRIMARY KEY,
     ProductNameEN VARCHAR(255),
     ImageLink VARCHAR(255),
     Price DECIMAL(10,2),
+    Rarity VARCHAR(50) DEFAULT 'Common',
     DescriptionEN TEXT,
     EffectEN TEXT,
     DescriptionPT TEXT,
@@ -37,9 +37,22 @@ CREATE TABLE Translations (
     PortugueseText TEXT NOT NULL
 );
 
+Create Table Orders (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+Create Table BoughtItems (
+    OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT not null,
+    ProductID INT not null,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
 -- All Translations
 INSERT INTO Translations (TranslationKey, EnglishText, PortugueseText) VALUES
-
 -- Global / Navigation
 ('HomeBtn', 'Home', 'Início'),
 ('ContactBtn', 'Contact', 'Contacto'),
