@@ -34,6 +34,52 @@ if (isset($_GET['remove'])) {
     header("Location: ShopCartContents.php?lang=" . $language);
     exit();
 }
+
+if (isset($_POST["PlaceOrder"])) {
+    if (count($_SESSION["Cart"]) > 0) {
+        
+        $currentUserID = isset($_SESSION["userid"]) ? (int)$_SESSION["userid"] : 0;
+        
+        if ($currentUserID === 0 && isset($_SESSION["Username"])) {
+            $stmtUser = $connection->prepare("SELECT UserID FROM Users WHERE Username = ?");
+            $stmtUser->bind_param("s", $_SESSION["Username"]);
+            $stmtUser->execute();
+            $resUser = $stmtUser->get_result();
+            if ($userRow = $resUser->fetch_assoc()) {
+                $currentUserID = (int)$userRow['UserID'];
+                $_SESSION["userid"] = $currentUserID; 
+            }
+        }
+
+        if ($currentUserID > 0) {
+            
+            $sqlInsertOrder = $connection->prepare("INSERT INTO Orders (UserID, OrderStatus) VALUES (?, 'Pending')");
+            $sqlInsertOrder->bind_param("i", $currentUserID);
+            $sqlInsertOrder->execute(); 
+            
+            $order_id = $connection->insert_id;
+
+            foreach ($_SESSION["Cart"] as $itemId => $itemQuantity) {
+                
+                $sqlInsertBoughtItem = $connection->prepare("INSERT INTO BoughtItems (OrderID, ProductID) VALUES (?, ?)");
+                
+                for ($i = 0; $i < $itemQuantity; $i++) {
+                    $sqlInsertBoughtItem->bind_param("ii", $order_id, $itemId);
+                    $sqlInsertBoughtItem->execute(); 
+                }
+            }
+
+            $_SESSION["Cart"] = [];
+            
+            header("Location: ShopCartContents.php?lang=" . $language . "&success=1");
+            exit();
+            
+        } else {
+            header("Location: Home.php?lang=" . $language);
+            exit();
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,13 +99,18 @@ if (isset($_GET['remove'])) {
 
     <div style="text-align: center; margin: 40px 0;">
         <div class="header-banner">
-            <h2 class="shop-title"><?= ($language === "EN") ? "Your Alchemy Satchel" : "SEU SACO DE ALCIMIA" ?></h2>
+            <h2 class="shop-title"><?= ($language === "EN") ? "Your Alchemy Satchel" : "SEU SACO DE ALQUIMIA" ?></h2>
             <div class="title-underline"></div>
         </div>
     </div>
 
     <div class="cart-wrapper">
-        <?php if (empty($_SESSION["Cart"])): ?>
+        <?php if (isset($_GET['success'])): ?>
+            <div class="empty-cart-msg" style="text-align:center; padding:50px;">
+                <p style="color: #2ecc71; font-size: 1.5rem; text-shadow: 0 0 10px rgba(46,204,113,0.4);">✨ Order Finalized Successfully! Your potions are brewing! ✨</p>
+                <a href="Products.php?lang=<?= $language ?>" class="back-link">Return to Shop</a>
+            </div>
+        <?php elseif (empty($_SESSION["Cart"])): ?>
             <div class="empty-cart-msg" style="text-align:center; padding:50px;">
                 <p><?= $arrayOfTranslations["CartEmptyMsg"] ?? "Your satchel is empty, traveler..." ?></p>
                 <a href="Products.php?lang=<?= $language ?>" class="back-link"><?= $arrayOfTranslations["CartReturnBtn"] ?? "Return to Shop" ?></a>
@@ -110,10 +161,12 @@ if (isset($_GET['remove'])) {
                 </tfoot>
             </table>
 
-            <div class="cart-actions" style="margin-top:20px; display:flex; justify-content:space-between;">
-                <a href="Products.php?lang=<?= $language ?>" class="continue-btn">Continue Shopping</a>
-                <button class="checkout-btn">Finalize Order</button>
-            </div>
+            <form method="POST" action="ShopCartContents.php?lang=<?= $language ?>">
+                <div class="cart-actions" style="margin-top:20px; display:flex; justify-content:space-between; align-items: center;">
+                    <a href="Products.php?lang=<?= $language ?>" class="continue-btn" style="text-decoration: none;">Continue Shopping</a>
+                    <button type="submit" name="PlaceOrder" class="checkout-btn">Finalize Order</button>
+                </div>
+            </form>
         <?php endif; ?>
     </div>
 </body>

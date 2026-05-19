@@ -1,8 +1,9 @@
 <?php
 include_once("CommonCode.php");
 includeCSS("Admin.css");
+includeCSS("AdminInvoices.css");
 
-// Check if user is Admin
+//Check if user is Admin
 if (!isset($_SESSION["UserLogged"]) || !$_SESSION["UserLogged"] || $_SESSION["UserType"] !== "Admin") {
     echo "<p style='text-align:center; margin-top:50px; color:red;'>" . ($arrayOfTranslations["AdminErrAccess"] ?? "Access denied. Admins only.") . "</p>";
     echo "<p style='text-align:center;'><a href='Home.php?lang=$language'>" . ($arrayOfTranslations["CartReturnBtn"] ?? "Return Home") . "</a></p>";
@@ -14,7 +15,23 @@ NavigationBar("Admin");
 $message = "";
 $imageLink = "";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+// --- Order status updater interaction ---
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["ConfirmOrder"])) {
+    $targetOrderID = (int)$_POST["order_id"];
+    
+    $sqlUpdateStatus = $connection->prepare("UPDATE Orders SET OrderStatus = 'Confirmed' WHERE OrderID = ?");
+    $sqlUpdateStatus->bind_param("i", $targetOrderID);
+    
+    if ($sqlUpdateStatus->execute()) {
+        $message = "<div class='success' style='color: #4caf50; text-align: center; margin-bottom: 10px;'>✨ Order #$targetOrderID successfully confirmed! ✨</div>";
+    } else {
+        $message = "<div class='error' style='color: #ff4b2b; text-align: center; margin-bottom: 10px;'>Error confirming order: " . $connection->error . "</div>";
+    }
+    $sqlUpdateStatus->close();
+}
+
+// --- Product addition system ---
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["productNameEN"])) {
     $productNameEN = trim($_POST["productNameEN"]);
     $productNamePT = trim($_POST["productNamePT"]);
     $price         = trim($_POST["price"]);
@@ -24,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $effectPT      = trim($_POST["effectPT"]);
     $rarity        = $_POST["rarity"];
 
-    // File upload logic
     if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = __DIR__ . '/Pictures';
         $fileTmp   = $_FILES['imageFile']['tmp_name'];
@@ -77,15 +93,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-    <div class="register" style="max-width:650px; margin:50px auto; background: rgba(26, 15, 46, 0.9); padding: 40px; border-radius: 15px; border: 1px solid #a064ff; color: white; font-family: 'VT323', monospace; text-align: center;">
+    <div style="max-width: 900px; margin: 20px auto 0 auto;">
+        <?= $message ?>
+    </div>
 
-
+    <div class="register" style="max-width:650px; margin:40px auto; background: rgba(26, 15, 46, 0.9); padding: 40px; border-radius: 15px; border: 1px solid #a064ff; color: white; font-family: 'VT323', monospace; text-align: center;">
         <div class="header-banner">
             <h2 class="page-main-title"><?= $arrayOfTranslations["AdminTitle"] ?? "ADMIN PANEL - CREATE PRODUCT" ?></h2>
             <hr class="title-underline">
         </div>
-
-        <?= $message ?>
 
         <form method="POST" enctype="multipart/form-data" style="text-align: left;">
             <label>Product Name (EN)</label>
@@ -129,6 +145,96 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 Add Magical Item
             </button>
         </form>
+    </div>
+
+    <!-- Invoice management -->
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <h2>📋 Invoice Management</h2>
+            <div class="invoice-header-line"></div>
+        </div>
+
+        <?php
+        $queryOrders = "SELECT o.OrderID, o.OrderStatus, u.Username 
+                        FROM Orders o 
+                        JOIN Users u ON o.UserID = u.UserID 
+                        ORDER BY o.OrderID DESC";
+        $resultOrders = $connection->query($queryOrders);
+
+        if ($resultOrders && $resultOrders->num_rows > 0):
+            while ($orderRow = $resultOrders->fetch_assoc()):
+                $orderID = $orderRow['OrderID'];
+                $buyerName = $orderRow['Username'];
+                $status = $orderRow['OrderStatus'];
+                
+                
+                $cardStatusClass = ($status === 'Pending') ? 'order-card-pending' : 'order-card-confirmed';
+                $badgeStatusClass = ($status === 'Pending') ? 'status-pending' : 'status-confirmed';
+        ?>
+                <div class="order-card <?= $cardStatusClass ?>">
+                    <div class="order-meta-row">
+                        <div>
+                            <span class="order-id">Order #<?= $orderID ?></span>
+                            <span class="order-buyer">Traveler: <strong><?= htmlspecialchars($buyerName) ?></strong></span>
+                        </div>
+                        <div>
+                            <span class="status-badge <?= $badgeStatusClass ?>">
+                                <?= strtoupper($status) ?>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="order-items-wrapper">
+                        <p class="items-label">Items Ordered:</p>
+                        <ul class="items-list">
+                            <?php
+                            $stmtItems = $connection->prepare("
+                                SELECT p.ProductNameEN, p.ProductNamePT, p.Price, COUNT(b.ProductID) AS calculatedQuantity
+                                FROM BoughtItems b
+                                JOIN products p ON b.ProductID = p.ProductID
+                                WHERE b.OrderID = ?
+                                GROUP BY b.ProductID
+                            ");
+                            $stmtItems->bind_param("i", $orderID);
+                            $stmtItems->execute();
+                            $resItems = $stmtItems->get_result();
+
+                            $orderTotal = 0;
+                            while ($itemRow = $resItems->fetch_assoc()) {
+                                $name = ($language === 'EN') ? $itemRow['ProductNameEN'] : $itemRow['ProductNamePT'];
+                                $qty = $itemRow['calculatedQuantity'];
+                                $price = $itemRow['Price'];
+                                $subtotal = $price * $qty;
+                                $orderTotal += $subtotal;
+                                
+                                echo "<li>" . htmlspecialchars($name) . " x$qty — <span class='item-price-total'>" . number_format($subtotal, 2) . " EUR</span></li>";
+                            }
+                            $stmtItems->close();
+                            ?>
+                        </ul>
+                        
+                        <div class="grand-total-display">
+                            Total Invoice: <strong><?= number_format($orderTotal, 2) ?> EUR</strong>
+                        </div>
+                    </div>
+
+                    <?php if ($status === 'Pending'): ?>
+                        <div class="action-alignment">
+                            <form method="POST" style="margin: 0; padding: 0;">
+                                <input type="hidden" name="order_id" value="<?= $orderID ?>">
+                                <button type="submit" name="ConfirmOrder" class="confirm-order-btn">
+                                    ✓ Approve & Confirm Order
+                                </button>
+                            </form>
+                        </div>
+                    <?php endif; ?>
+                </div>
+        <?php 
+            endwhile;
+        else:
+            echo "<p style='text-align: center; color: #888; padding: 20px;'>No invoices found in the archives yet.</p>";
+        endif; 
+        ?>
     </div>
 
     <script>
