@@ -19,13 +19,14 @@ $imageLink = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["ConfirmOrder"])) {
     $targetOrderID = (int)$_POST["order_id"];
     
-    $sqlUpdateStatus = $connection->prepare("UPDATE Orders SET OrderStatus = 'Confirmed' WHERE OrderID = ?");
+    // Changed 'Confirmed' to 'Delivered' to follow Sprint instructions perfectly
+    $sqlUpdateStatus = $connection->prepare("UPDATE Orders SET OrderStatus = 'Delivered' WHERE OrderID = ?");
     $sqlUpdateStatus->bind_param("i", $targetOrderID);
     
     if ($sqlUpdateStatus->execute()) {
-        $message = "<div class='success' style='color: #4caf50; text-align: center; margin-bottom: 10px;'>✨ Order #$targetOrderID successfully confirmed! ✨</div>";
+        $message = "<div class='success' style='color: #4caf50; text-align: center; margin-bottom: 10px;'>✨ Order #$targetOrderID successfully updated to Delivered! ✨</div>";
     } else {
-        $message = "<div class='error' style='color: #ff4b2b; text-align: center; margin-bottom: 10px;'>Error confirming order: " . $connection->error . "</div>";
+        $message = "<div class='error' style='color: #ff4b2b; text-align: center; margin-bottom: 10px;'>Error updating order: " . $connection->error . "</div>";
     }
     $sqlUpdateStatus->close();
 }

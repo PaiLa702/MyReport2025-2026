@@ -89,6 +89,10 @@ function NavigationBar($callingPage)
             </span>
 
             <?php if ($_SESSION["UserType"] !== "Admin") : ?>
+                <a href="OrderHistory.php?lang=<?= $language ?>" <?= ($callingPage === "OrderHistory") ? "class='highlight'" : "" ?>>
+                    <?= ($language === "EN") ? "Order History" : "Histórico" ?>
+                </a>
+
                 <a href="ShopCartContents.php?lang=<?= $language ?>" class="cart-link">
                     <img width="30px" src="Pictures/cart.png" style="vertical-align: middle;">
                     <span class="cart-badge"><?= getCartCount() ?></span>

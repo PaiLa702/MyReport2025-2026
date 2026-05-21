@@ -49,25 +49,27 @@ if (isset($_POST["PlaceOrder"])) {
                 $currentUserID = (int)$userRow['UserID'];
                 $_SESSION["userid"] = $currentUserID; 
             }
+            $stmtUser->close();
         }
 
         if ($currentUserID > 0) {
-            
+    
             $sqlInsertOrder = $connection->prepare("INSERT INTO Orders (UserID, OrderStatus) VALUES (?, 'Pending')");
             $sqlInsertOrder->bind_param("i", $currentUserID);
             $sqlInsertOrder->execute(); 
             
             $order_id = $connection->insert_id;
+            $sqlInsertOrder->close();
 
+            $sqlInsertBoughtItem = $connection->prepare("INSERT INTO BoughtItems (OrderID, ProductID) VALUES (?, ?)");
+            
             foreach ($_SESSION["Cart"] as $itemId => $itemQuantity) {
-                
-                $sqlInsertBoughtItem = $connection->prepare("INSERT INTO BoughtItems (OrderID, ProductID) VALUES (?, ?)");
-                
                 for ($i = 0; $i < $itemQuantity; $i++) {
                     $sqlInsertBoughtItem->bind_param("ii", $order_id, $itemId);
                     $sqlInsertBoughtItem->execute(); 
                 }
             }
+            $sqlInsertBoughtItem->close();
 
             $_SESSION["Cart"] = [];
             
@@ -149,6 +151,7 @@ if (isset($_POST["PlaceOrder"])) {
                             </tr>
                     <?php
                         }
+                        $stmt->close();
                     }
                     ?>
                 </tbody>
